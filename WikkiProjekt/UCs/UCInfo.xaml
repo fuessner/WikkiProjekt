@@ -1,0 +1,22 @@
+﻿<UserControl x:Class="WikkiProjekt.UCs.UCInfo"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:WikkiProjekt.UCs"
+             
+           
+             xmlns:MW="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="550" d:DesignWidth="1100">
+     <Grid Background="{StaticResource AppBrushColorBlue}" Margin="4 2">
+        <!-- siehe oben:
+           xmlns:MW wurde per Hand kopiert, damit das Design hier auch angewendet werden kann-->
+        <!--TransitioningContent wird genommen das das user control vergrößer wird bei der darstellung-->
+        <MD:TransitioningContent OpeningEffect="{MD:TransitionEffect Kind=ExpandIn, Duration=0:0:0.4}">
+           
+        </MD:TransitioningContent> 
+         
+    </Grid>
+</UserControl>

@@ -1,0 +1,369 @@
+﻿<Application x:Class="WikkiProjekt.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:WikkiProjekt"
+             xmlns:MW="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <!--Jetzt binden wir die heruntergeladenen pakete noch ein-->
+                
+                <!-- MaterialDesignThemes.MahApp-->
+                <!-- Die Resourcen die wir brauchen laden wir von der Webseite mahapps.com/docs/guides/quick-Start-->
+                <!-- Die Verweise finden wir unter: https://mahapps.com/docs/guides/quick-start -->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
+                <!-- Theme setting -->
+                <!--Hier wird nun auch die Farbe des Thems festgelegt
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Teal.xaml" />
+                
+                <!--______________________________________________________________________________________________________________-->
+                <!--jetzt noch die Resourcen von http://materialdesigninxaml.net/ einbinden.-->
+               
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.DeepPurple.xaml" />-->
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Cyan.xaml" />
+                <!--Die nächste Zeile lassen wir erst weg. Ist wohl für Hover effekte-->
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />-->
+
+
+                <!--______________________________________________________________________________________________________________-->
+                <!--Hier wird die Resouce global geladen.-->
+                <!--diese haben wir selbst erstellt-->
+               
+                <ResourceDictionary Source=".\Resourcen\appstyle.xaml"/>
+
+            </ResourceDictionary.MergedDictionaries>
+            
+            
+            
+            <!--Hintergrundfarbe für die APP festlegen-->
+            <SolidColorBrush x:Key="AppBrushColorBlue" Color="#FF042840"/>
+            <SolidColorBrush x:Key="AppBrushColorBlueHover" Color="#FF075683"/>
+            <SolidColorBrush x:Key="AppBrushColorCyan" Color="#FF10BFC7"/>
+            <SolidColorBrush x:Key="AppBrushColorCyanHover" Color="#FF6AF1F7"/>
+
+             <!--Normale Farbe-->
+            <Color x:Key="AppBlueColor">#FF042840</Color>
+            <Color x:Key="AppCyanColor">#FF10BFC7</Color>
+
+             <!--Button Style--> 
+            <Style x:Key="BtnMinCloseStyle" TargetType="Button">
+                <Setter Property="Height" Value="28"/>
+                <Setter Property="Width" Value="28"/>
+                <Setter Property="Margin" Value="0 2"/>
+                <Setter Property="BorderThickness" Value="0"/>
+                <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border Name="Tborder" BorderThickness="0" 
+                                Background="{StaticResource AppBrushColorBlue}"
+                                CornerRadius="15">
+
+                                <!--Um die Icon zu sehen muss ein ContentPresenter geschrieben werden-->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="Tborder" Property="Background" Value="White"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <!--Hier wird ein key vergeben, da wir 3 styles für den Button haben-->
+            <Style x:Key="ButtonStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
+                                        <Setter Property="CornerRadius" Value="20"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="BorderBrush" Value="White"/>
+                                        <Setter Property="Padding" Value="8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource AppBrushColorCyan}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <!--ContentPresenter muss sein, da man sonst die Beschrift vom Button nicht sieht-->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ButtonRedOverStyle" TargetType="Button" BasedOn="{StaticResource ButtonStyle}">
+                <!--Nachdem hier mit BasedOn gearbeitet wird, können wir uns die ersten beiden Setter sparren-->
+                <!--da diese vom oberen Style abgeleitet werden-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
+                                        <Setter Property="CornerRadius" Value="20"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="BorderBrush" Value="White"/>
+                                        <Setter Property="Padding" Value="8"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="DarkRed"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <!--ContentPresenter muss sein, da man sonst die Beschrift vom Button nicht sieht-->
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="ButtonStyle2" TargetType="{x:Type Button}" BasedOn="{StaticResource ButtonStyle}">
+                <!--Nachdem hier mit BasedOn gearbeitet wird, können wir uns die ersten beiden Setter sparren-->
+                <!--da diese vom oberen Style abgeleitet werden-->
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Grid>
+                                <Border VerticalAlignment="Stretch" HorizontalAlignment="Stretch">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="BorderThickness" Value="1"/>
+                                            <Setter Property="BorderBrush" Value="{StaticResource AppBrushColorCyan}"/>
+                                            <Setter Property="CornerRadius" Value="10"/>
+                                            <Setter Property="Padding" Value="6 0 6 0"/>
+                                            <Style.Triggers>
+                                                <Trigger Property="IsMouseOver" Value="True">
+                                                    <Setter Property="BorderThickness" Value="0 0 0 2"/>
+                                                </Trigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <!--ContentPresenter muss sein, da man sonst die Beschrift vom Button nicht sieht-->
+                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                </Border>
+                            </Grid>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BtnOpenTabStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Arial Black"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
+                                        <Setter Property="CornerRadius" Value="10 10 0 0"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource AppBrushColorCyan}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BtnAddImageStyle" TargetType="Button">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="20"/>
+                <Setter Property="FontFamily" Value="Arial Black"/>
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
+                                        <Setter Property="Padding" Value="2"/>
+                                        <Setter Property="CornerRadius" Value="8"/>
+                                        <Setter Property="BorderThickness" Value="1"/>
+                                        <Setter Property="BorderBrush" Value="{StaticResource AppBrushColorCyan}"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Background" Value="{StaticResource AppBrushColorCyan}"/>
+                                                <Setter Property="BorderBrush" Value="White"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <Grid>
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <MD:PackIcon Kind="Upload" Height="24" Width="20"
+                                                     Margin="0 0 10 0" Foreground="White"/>
+                                        <TextBlock Text="BILD HOCHLADEN"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <!--Style für TextBox-->
+            <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="MD:TextFieldAssist.UnderlineBrush" Value="{StaticResource AppBrushColorCyan}"/>
+                <Setter Property="BorderBrush" Value="{StaticResource AppBrushColorCyan}"/>
+                <Setter Property="FontFamily" Value="Arial Black"/>
+                <Setter Property="FontSize" Value="16"/>
+                <Setter Property="MD:HintAssist.Foreground" Value="{StaticResource AppBrushColorCyanHover}"/>
+                <Setter Property="SnapsToDevicePixels" Value="True"/>
+                <Setter Property="UseLayoutRounding" Value="True"/>
+            </Style>
+            
+            <!--ListViewItem Style-->
+            <Style x:Key="ListViewItemStyle" TargetType="ListViewItem">
+                <Setter Property="Height"   Value="50"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListViewItem">
+                            <Border>
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="Transparent"/>
+                                        <Setter Property="BorderThickness" Value="0 0 0 1"/>
+                                        <Setter Property="BorderBrush" Value="Transparent"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                        <Style.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="BorderBrush" Value="White"/>
+                                                <Setter Property="Background" Value="{StaticResource AppBrushColorBlueHover}"/>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ContentPresenter HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+           
+            <!-- ........................................................................................... -->
+            <!--DataGrid Styles-->
+            <!--Der Style-->
+            <!--<Style TargetType="{x:Type DataGridColumnHeader}" ..........>-->
+            <!--kann auch wie folgt geschrieben werden-->
+            <!--<Style TargetType="DataGridColumnHeader" ............}">-->
+            <!--KEY muss nicht unbedingt angegeben werden-->
+            <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource MaterialDesignDataGridColumnHeader}">
+                <Setter Property="SnapsToDevicePixels"      Value="True"/>
+                <Setter Property="UseLayoutRounding"        Value="True"/>
+                <Setter Property="Height"                   Value="30"/>
+                <Setter Property="FontSize"                 Value="22"/>
+                <Setter Property="FontFamily"               Value="Franklin Gothic Heavy"/>
+                <Setter Property="FontWeight"               Value="ExtraBold"/>
+                <Setter Property="Foreground"               Value="White"/>
+                <Setter Property="Cursor"                   Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type DataGridColumnHeader}">
+                            <Border Background="{StaticResource AppBrushColorBlue}">
+
+                                <ContentPresenter UseLayoutRounding="True"
+                                                  SnapsToDevicePixels="True"
+                                                  HorizontalAlignment="Left"
+                                                  VerticalAlignment="Center">
+                                </ContentPresenter>
+                               
+                            </Border>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
+                <Setter Property="Height"                   Value="30"/>
+                <Setter Property="FontWeight"               Value="Bold"/>
+                <Setter Property="Background"               Value="Transparent"/>
+                <Setter Property="Foreground"               Value="{StaticResource AppBrushColorBlue}"/>
+                <Setter Property="BorderThickness"          Value="0"/>
+                <Style.Triggers>
+                    <Trigger Property="IsSelected" Value="True">
+                        <Setter Property="Background"       Value="{StaticResource AppBrushColorCyan}"/>
+                        <Setter Property="Foreground"       Value="White"/>
+                        <Setter Property="FontSize"         Value="20"/>
+                    </Trigger>
+                    <!--Multitrigger ist wie Triger, ich kann jedoch 2 Abhängigkeinten wie ISSELECT und ISMOUSEOVER -->
+                    <!--prüfen. Mann muss nicht DataGridCell.IsSelected schreiben. Es reicht IsSelected -->
+                    <MultiTrigger>
+                        <MultiTrigger.Conditions>
+                            <Condition Property="DataGridCell.IsSelected" Value="True"/>
+                            <Condition Property="DataGridCell.IsMouseOver" Value="True"/>
+                        </MultiTrigger.Conditions>
+                        <MultiTrigger.Setters>
+                            <Setter Property="Background" Value="{StaticResource AppBrushColorCyan}"/>
+                            <Setter Property="Foreground" Value="White"/>
+                            <Setter Property="FontSize" Value="22"/>
+                        </MultiTrigger.Setters>
+                    </MultiTrigger>
+                </Style.Triggers>
+
+            </Style>
+
+            <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
+                <Setter Property="Height"                   Value="30"/>
+                <Setter Property="FontWeight"               Value="Bold"/>
+                <Setter Property="FontSize"                 Value="18"/>
+                <Setter Property="BorderThickness"          Value="1"/>
+                <Setter Property="BorderBrush"              Value="{StaticResource AppBrushColorBlue}"/>
+                <Setter Property="Background"               Value="White"/>
+                <Setter Property="Foreground"               Value="{StaticResource AppBrushColorBlue}"/>
+                <Setter Property="FontFamily"               Value="Franklin Gothic Heavy"/>
+                <Setter Property="Cursor"                   Value="Hand"/>
+                <Style.Triggers>
+                     <Trigger Property="DataGridRow.IsMouseOver" Value="True">
+                           <Setter Property="Background"       Value="{StaticResource AppBrushColorCyanHover}"/>
+                     </Trigger>
+                 </Style.Triggers>
+            </Style>
+
+            <Style TargetType="DataGrid" BasedOn="{StaticResource MaterialDesignDataGrid}">
+                <Setter Property="GridLinesVisibility"    Value="All"/>
+                <Setter Property="BorderThickness"        Value="0"/>
+                <Setter Property="Background"             Value="Transparent"/>
+                <Setter Property="VerticalAlignment"      Value="Top"/>
+                <Setter Property="AutoGenerateColumns"    Value="False"/>
+                <Setter Property="HeadersVisibility"      Value="Column"/>
+                <Setter Property="IsReadOnly"             Value="True"/>
+                <Setter Property="CanUserAddRows"         Value="false"/>
+            </Style>
+            <!-- ........................................................................................... -->
+        </ResourceDictionary>
+    </Application.Resources>
+</Application>
