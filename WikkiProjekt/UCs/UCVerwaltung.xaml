@@ -149,14 +149,18 @@
                                         </Grid.RowDefinitions>
                                         <Grid Grid.Row="0">
                                             <StackPanel Orientation="Vertical">
-                                                <TextBlock x:Name="TxtBlckImgValInfo" Padding="2"
+                                                <TextBlock x:Name="TxtBlckImgValInfo" 
+                                                           Text="Bild"
+                                                           FontWeight="Bold"
+                                                           Padding="2"
                                                            Foreground="DarkRed"
                                                            HorizontalAlignment ="Center">
                                                 </TextBlock>
-                                                <StackPanel Orientation="Horizontal" Height="130" Width="240">
+                                                <StackPanel Orientation="Horizontal" Height="130" Width="240"
+                                                            Margin="0 4">
                                                     <Canvas x:Name="CnvsImgDragDrop"
-                                                            Width="110"
-                                                            Background="{StaticResource AppBruhColorCyan}"
+                                                            Width="110" Height="130"
+                                                            Background="{StaticResource AppBrushColorCyan}"
                                                             AllowDrop="True">
                                                         <MD:PackIcon Kind="FileUploadOutline"
                                                                      Height="130" Width="110"
@@ -164,13 +168,118 @@
                                                         </MD:PackIcon>
                                                         
                                                     </Canvas>
+                                                    <Border BorderThickness="1"
+                                                            BorderBrush="{StaticResource AppBrushColorCyan}"
+                                                            Width="130" Height="130">
+                                                        <Image x:Name="ImgAdd" Stretch="Fill"
+                                                               Width="130" Height="130">
+                                                        </Image>
+                                                    </Border>
                                                 </StackPanel>
 
-                                                <Button>
-
+                                                <Button x:Name="BtnAddImg" Content="Add Image"
+                                                        Style="{StaticResource BtnAddImageStyle}">
+                                                    
                                                 </Button>
                                             </StackPanel>
 
+                                        </Grid>
+                                        <Grid Grid.Row="1">
+                                            <StackPanel Orientation="Vertical" Margin="0 4 0 0">
+                                                <!--Name-->
+                                                <StackPanel Orientation="Vertical" Height="56"
+                                                            HorizontalAlignment="Center">
+                                                    <TextBox x:Name="TxtBxAddName"
+                                                             Width="340"
+                                                             MD:HintAssist.Hint="NAME:"
+                                                             Cursor="Hand">
+                                                    </TextBox>
+                                                    <TextBlock x:Name="TxtBxAddNameValInfo"
+                                                               Width="340" Foreground="DarkRed">
+                                                    </TextBlock>
+                                                    
+                                                </StackPanel>
+                                                
+                                                <!--Vorname-->
+                                                <StackPanel Orientation="Vertical" Height="56"
+                                                            HorizontalAlignment="Center">
+                                                    <TextBox x:Name="TxtBxAddVorname"
+                                                             Width="340"
+                                                             MD:HintAssist.Hint="VORNAME:"
+                                                             Cursor="Hand">
+                                                    </TextBox>
+                                                    <TextBlock x:Name="TxtBxAddVornameValInfo"
+                                                               Width="340" Foreground="DarkRed">
+                                                    </TextBlock>
+                                                </StackPanel>
+
+                                                <!--Stadt-->
+                                                <StackPanel Orientation="Vertical" Height="50"
+                                                            HorizontalAlignment="Center">
+                                                    <ComboBox x:Name="CmbBxCity"
+                                                              DisplayMemberPath="SName"
+                                                              SelectedValuePath="SID"
+                                                              MD:HintAssist.Hint="STADT:"
+                                                              Cursor="Hand">
+                                                    </ComboBox>
+                                                    <TextBlock x:Name="CmbBxCityValInfo"
+                                                               Width="340" Foreground="DarkRed">
+                                                    </TextBlock>
+                                                </StackPanel>
+
+                                                <!-- Infiziert oder nicht-->
+                                                <!--Hier kommt zuerst ein Border hin, damit die RadioButton nachher rund-->
+                                                <!--dargestellt werden können.-->
+                                                <!--GroupName damit diese beiten RadioButton zusammen gehört und nur-->
+                                                <!--einer Ausgewählt werden kann.-->
+                                                <Border BorderThickness="1"
+                                                        BorderBrush="{StaticResource AppBrushColorCyan}"
+                                                        CornerRadius="14">
+                                                    <StackPanel Orientation="Horizontal" Height="40"
+                                                            HorizontalAlignment="Stretch">
+                                                        <RadioButton x:Name="RdBtnInfiziert"
+                                                                     GroupName="A"
+                                                                     Content="INFIZIERT">
+                                                            
+                                                        </RadioButton>
+                                                        <RadioButton x:Name="RdBtnNichtInfiziert"
+                                                                     GroupName="A" Margin="20 0 0 0"
+                                                                     Content="NICHT INFIZIERT">
+
+                                                        </RadioButton>
+                                                    </StackPanel>
+                                                </Border>
+                                                
+                                                <!--Abgeschlossen oder im Test -->
+                                                <Border BorderThickness="1"
+                                                        BorderBrush="{StaticResource AppBrushColorCyan}"
+                                                        CornerRadius="14">
+                                                    <StackPanel Orientation="Horizontal" Height="40"
+                                                            HorizontalAlignment="Stretch">
+                                                        <RadioButton x:Name="RdBtnAbgeschlossen"
+                                                                     GroupName="A"
+                                                                     Content="ABGESCHLOSSEN">
+
+                                                        </RadioButton>
+                                                        <RadioButton x:Name="RdBtnNichtAbgeschlossen"
+                                                                     GroupName="A" Margin="20 0 0 0"
+                                                                     Content="NICHT ABGESCHLOSSEN">
+
+                                                        </RadioButton>
+                                                    </StackPanel>
+                                                </Border>
+                                                
+                                                <!--Speicher Button-->
+                                                <Border HorizontalAlignment="Right">
+                                                    <Button x:Name="BtnAddPerson" Content="SPEICHERN"
+                                                            Margin="0 4 0 0"
+                                                            Padding="40"
+                                                            FontSize="18" FontWeight="Bold"
+                                                            Style="{StaticResource ButtonStyle}" Cursor="Hand">
+                                                        
+                                                    </Button>
+                                                </Border>
+                                            </StackPanel>
                                         </Grid>
                                     </Grid>
                                 </MW:MetroTabItem>
