@@ -16,6 +16,9 @@ namespace WikkiDBBlib.Models
     public class Person
 
     {
+
+        // Datenbank Definition
+        // Readme beachten da man das in der Console Hochladen kann
         [Key]
         public int PID { get; set; } 
         [Required]

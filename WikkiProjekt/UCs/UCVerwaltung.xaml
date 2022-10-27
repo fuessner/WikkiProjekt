@@ -8,6 +8,13 @@
              xmlns:local="clr-namespace:WikkiProjekt.UCs"
              mc:Ignorable="d" 
               d:DesignHeight="550" d:DesignWidth="1100">
+    <!--Das Entwickeln der Style in App.xaml ist teilweise zeitverzöger-->
+    <!--man kann diesen Style auch erst einmal hier direkt schreiben in-->
+    <!--User.Control.Resources und diese dann später kopieren-->
+    <!--<UserControl.Resources>-->
+
+    <!--</UserControl.Resources>-->
+    
     <Grid Background="{StaticResource AppBrushColorBlue}" Margin="4 2">
         <!-- siehe oben:
            xmlns:MW wurde per Hand kopiert, damit das Design hier auch angewendet werden kann-->
@@ -195,7 +202,8 @@
                                                              Cursor="Hand">
                                                     </TextBox>
                                                     <TextBlock x:Name="TxtBxAddNameValInfo"
-                                                               Width="340" Foreground="DarkRed">
+                                                               Width="340" Foreground="DarkRed"
+                                                               HorizontalAlignment="Center">
                                                     </TextBlock>
                                                     
                                                 </StackPanel>
@@ -209,7 +217,8 @@
                                                              Cursor="Hand">
                                                     </TextBox>
                                                     <TextBlock x:Name="TxtBxAddVornameValInfo"
-                                                               Width="340" Foreground="DarkRed">
+                                                               Width="340" Foreground="DarkRed"
+                                                               HorizontalAlignment="Center">
                                                     </TextBlock>
                                                 </StackPanel>
 
@@ -223,7 +232,8 @@
                                                               Cursor="Hand">
                                                     </ComboBox>
                                                     <TextBlock x:Name="CmbBxCityValInfo"
-                                                               Width="340" Foreground="DarkRed">
+                                                               Width="340" Foreground="DarkRed"
+                                                               HorizontalAlignment="Center">
                                                     </TextBlock>
                                                 </StackPanel>
 
@@ -239,12 +249,14 @@
                                                             HorizontalAlignment="Stretch">
                                                         <RadioButton x:Name="RdBtnInfiziert"
                                                                      GroupName="A"
-                                                                     Content="INFIZIERT">
+                                                                     Content="INFIZIERT"
+                                                                     Style="{StaticResource RdBtnRedStyle}">
                                                             
                                                         </RadioButton>
                                                         <RadioButton x:Name="RdBtnNichtInfiziert"
                                                                      GroupName="A" Margin="20 0 0 0"
-                                                                     Content="NICHT INFIZIERT">
+                                                                     Content="NICHT INFIZIERT"
+                                                                     Style="{StaticResource RdBtnCyanStyle}">
 
                                                         </RadioButton>
                                                     </StackPanel>
@@ -258,12 +270,14 @@
                                                             HorizontalAlignment="Stretch">
                                                         <RadioButton x:Name="RdBtnAbgeschlossen"
                                                                      GroupName="A"
-                                                                     Content="ABGESCHLOSSEN">
+                                                                     Content="ABGESCHLOSSEN"
+                                                                     Style="{StaticResource RdBtnCyanStyle}">
 
                                                         </RadioButton>
                                                         <RadioButton x:Name="RdBtnNichtAbgeschlossen"
                                                                      GroupName="A" Margin="20 0 0 0"
-                                                                     Content="NICHT ABGESCHLOSSEN">
+                                                                     Content="NICHT ABGESCHLOSSEN"
+                                                                     Style="{StaticResource RdBtnRedStyle}">
 
                                                         </RadioButton>
                                                     </StackPanel>
@@ -273,9 +287,9 @@
                                                 <Border HorizontalAlignment="Right">
                                                     <Button x:Name="BtnAddPerson" Content="SPEICHERN"
                                                             Margin="0 4 0 0"
-                                                            Padding="40"
+                                                            Width="150"
                                                             FontSize="18" FontWeight="Bold"
-                                                            Style="{StaticResource ButtonStyle}" Cursor="Hand">
+                                                            Style="{StaticResource ButtonStyle}">
                                                         
                                                     </Button>
                                                 </Border>
