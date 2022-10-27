@@ -157,7 +157,8 @@
                                         <Grid Grid.Row="0">
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock x:Name="TxtBlckImgValInfo" 
-                                                           Text="Bild"
+                                                           Width="340"
+                                                           Text="---"
                                                            FontWeight="Bold"
                                                            Padding="2"
                                                            Foreground="DarkRed"
@@ -223,9 +224,13 @@
                                                 </StackPanel>
 
                                                 <!--Stadt-->
-                                                <StackPanel Orientation="Vertical" Height="50"
+                                                <StackPanel Orientation="Vertical" Height="54"
+                                                            Margin="0 4"
                                                             HorizontalAlignment="Center">
                                                     <ComboBox x:Name="CmbBxCity"
+                                                              Width="340"
+                                                              Padding="0 0 0 0"
+                                                              Margin="0 2 0 0"
                                                               DisplayMemberPath="SName"
                                                               SelectedValuePath="SID"
                                                               MD:HintAssist.Hint="STADT:"
@@ -242,7 +247,7 @@
                                                 <!--dargestellt werden können.-->
                                                 <!--GroupName damit diese beiten RadioButton zusammen gehört und nur-->
                                                 <!--einer Ausgewählt werden kann.-->
-                                                <Border BorderThickness="1"
+                                                <Border BorderThickness="1" Margin="0 4 0 4" Height="40"
                                                         BorderBrush="{StaticResource AppBrushColorCyan}"
                                                         CornerRadius="14">
                                                     <StackPanel Orientation="Horizontal" Height="40"
@@ -297,13 +302,15 @@
                                         </Grid>
                                     </Grid>
                                 </MW:MetroTabItem>
-                                
+                                <!--Zweiter TAB EDIT-->
                                 <MW:MetroTabItem Name="TabItemEdit">
                                     <Grid Background="Blue"/>
                                 </MW:MetroTabItem>
+                                <!--Dritter Tab Stadt-->
                                 <MW:MetroTabItem Name="TabItemCity">
                                     <Grid Background="Aqua"/>
                                 </MW:MetroTabItem>
+                                
                             </MW:MetroAnimatedTabControl>
                         </Grid>
                     </Grid>

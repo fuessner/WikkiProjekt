@@ -300,7 +300,6 @@
                 <Setter Property="UseLayoutRounding" Value="True"/>
                 <Setter Property="VerticalAlignment" Value="Bottom"/>
                 <Setter Property="VerticalContentAlignment" Value="Bottom"/>
-                <Setter Property="Padding" Value="0 6 0 2"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
                 <Setter Property="Cursor" Value="Hand"/>
