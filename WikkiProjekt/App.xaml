@@ -237,6 +237,7 @@
             <!--Style für TextBox-->
             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
                 <Setter Property="Foreground" Value="White"/>
+                <Setter Property="VerticalContentAlignment" Value="Bottom"/>
                 <Setter Property="MD:TextFieldAssist.UnderlineBrush" Value="{StaticResource AppBrushColorCyan}"/>
                 <Setter Property="BorderBrush" Value="{StaticResource AppBrushColorCyan}"/>
                 <Setter Property="FontFamily" Value="Arial Black"/>

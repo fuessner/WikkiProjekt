@@ -469,7 +469,53 @@
 
                                 <!--Dritter Tab Stadt-->
                                 <MW:MetroTabItem Name="TabItemCity">
-                                    <Grid Background="Aqua"/>
+                                    <Grid Background="{StaticResource AppBrushColorBlue}">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="80"/>
+                                                <RowDefinition Height="50"/>
+                                                <RowDefinition Height="*"/>
+                                            </Grid.RowDefinitions>
+                                            <!--ICON vom Haus-->
+                                            <Grid Grid.Row="0">
+                                                <MD:PackIcon Kind="CityVariantOutline"
+                                                             Foreground="White"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Center"
+                                                             Height="80" Width="80">
+                                                </MD:PackIcon>
+                                            </Grid>
+                                            <!--Grid zum Eingeben des Stadtnamens-->
+                                            <Grid Grid.Row="1">
+                                                <StackPanel Orientation="Horizontal" Margin="4"
+                                                            HorizontalAlignment="Left">
+                                                    <TextBox Name="TxtBxAddNewCity"
+                                                             Width="210"
+                                                             MD:HintAssist.Hint="Stadt Name">
+                                                    </TextBox>
+                                                    <Button Name="BtnAddNewCitý" Content="SPEICHERN"
+                                                            Height="30" Width="120"
+                                                            FontSize="20" FontWeight="Bold"
+                                                            Margin="10 10 0 0"
+                                                            Style="{StaticResource ButtonStyle2}">
+                                                    </Button>
+                                                </StackPanel>
+                                            </Grid>
+                                            <!--Listbox der Städte-->
+                                            <Grid Grid.Row="2">
+                                                <Border Margin="18" Padding="8"
+                                                        MinHeight="200"
+                                                        VerticalAlignment="Top"
+                                                        CornerRadius="18"
+                                                        BorderThickness="2"
+                                                        BorderBrush="{StaticResource AppBrushColorCyan}">
+                                                    <ListBox Name="ListBoxCities">
+                                                        
+                                                    </ListBox>
+                                                </Border>
+                                            </Grid>
+                                        </Grid>
+                                    </Grid>
                                 </MW:MetroTabItem>
 
                             </MW:MetroAnimatedTabControl>
