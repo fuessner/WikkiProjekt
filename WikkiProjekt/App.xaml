@@ -274,6 +274,38 @@
                     </Setter.Value>
                 </Setter>
             </Style>
+
+            <Style x:Key="ListBoxCitiesItemStyle" TargetType="ListBoxItem">
+                <Setter Property="Cursor" Value="Hand"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="ListBoxItem">
+                            <Border x:Name="LstBxItemBorder" CornerRadius="10"
+                                    Margin="4" BorderThickness="1"
+                                    BorderBrush="{StaticResource AppBrushColorCyan}">
+                                <Label Name="LblCName" Content="{Binding SName}"
+                                           FontSize="14" FontWeight="Bold"
+                                           Foreground="White" HorizontalContentAlignment="Center">
+                                </Label>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="LstBxItemBorder"
+                                            Property="Background" Value="{StaticResource AppBrushColorBlueHover}">
+                                    </Setter>
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter TargetName="LstBxItemBorder"
+                                            Property="Background" Value="{StaticResource AppBrushColorCyan}">
+                                    </Setter>
+                                    <Setter TargetName="LblCName" Property="Foreground" Value="{StaticResource AppBrushColorBlue}"/>
+                                    <Setter TargetName="LblCname" Property="FontSize" Value="20"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
             
             <!-- ........................................................................................... -->
             <!--Style für Combo Box Item-->
