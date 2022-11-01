@@ -233,6 +233,37 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="BtnDeleteCityStyle" TargetType="Button" >
+                <Setter Property="Foreground" Value="White"/>
+                <Setter Property="FontSize" Value="30"/>
+                <Setter Property="FontWeight" Value="Bold"/>
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="Button">
+                            <Border x:Name="TBorder">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="{StaticResource AppBrushColorBlue}"/>
+                                        <Setter Property="CornerRadius" Value="10 10 0 0"/>
+                                        <Setter Property="Padding" Value="4"/>
+                                        <Setter Property="Cursor" Value="Hand"/>
+                                    </Style>
+                                </Border.Style>
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter TargetName="TBorder" Property="Background" Value="{StaticResource AppBrushColorCyan}"/>
+                                    <Setter Property="Foreground" Value="{StaticResource AppBrushColorBlue}"/>
+                                    <Setter Property="FontWeight" Value="ExtraBold"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+
+            </Style>
+
 
             <!--Style für TextBox-->
             <Style TargetType="TextBox" BasedOn="{StaticResource MaterialDesignFloatingHintTextBox}">
@@ -284,7 +315,7 @@
                                     Margin="4" BorderThickness="1"
                                     BorderBrush="{StaticResource AppBrushColorCyan}">
                                 <Label Name="LblCName" Content="{Binding SName}"
-                                           FontSize="14" FontWeight="Bold"
+                                           FontSize="16" FontWeight="Bold"
                                            Foreground="White" HorizontalContentAlignment="Center">
                                 </Label>
                             </Border>
@@ -299,7 +330,8 @@
                                             Property="Background" Value="{StaticResource AppBrushColorCyan}">
                                     </Setter>
                                     <Setter TargetName="LblCName" Property="Foreground" Value="{StaticResource AppBrushColorBlue}"/>
-                                    <Setter TargetName="LblCname" Property="FontSize" Value="20"/>
+                                    <Setter TargetName="LblCName" Property="FontSize" Value="20"/>
+                                    <Setter TargetName="LblCName" Property="FontWeight" Value="ExtraBold"/>
                                 </Trigger>
                             </ControlTemplate.Triggers>
                         </ControlTemplate>

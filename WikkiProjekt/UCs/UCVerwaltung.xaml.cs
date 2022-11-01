@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WikkiDBBlib.DBAccess;
 
 namespace WikkiProjekt.UCs
 {
@@ -29,9 +30,15 @@ namespace WikkiProjekt.UCs
 
         // Wenn die UCVerwaltung das erste mal aufgerufen wird, wollen wir das
         // diese Einstellungen übernommen werden.
-        private void _init()
+        private async void _init()
         {
-            _ShowTabPage(BtnTabAdd);    
+            _ShowTabPage(BtnTabAdd);
+            // ---------------------------------------------------------
+            var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
+            // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
+            // ListBoxCities
+            ListBoxCities.ItemsSource = cities;
+            // ---------------------------------------------------------
         }
         private void _ShowTabPage(Button iSender)
         {

@@ -509,8 +509,45 @@
                                                         CornerRadius="18"
                                                         BorderThickness="2"
                                                         BorderBrush="{StaticResource AppBrushColorCyan}">
-                                                    <ListBox Name="ListBoxCities">
-                                                        
+                                                    <!-- SelectedItem.SName Greif auf den Hinhalt der Listbox zurück das gerade ausgewählt wurde -->
+                                                    <ListBox Name="ListBoxCities"
+                                                             ItemContainerStyle="{StaticResource ListBoxCitiesItemStyle}">
+                                                        <ListBox.ContextMenu>
+                                                            <ContextMenu Background="AliceBlue">
+                                                                <ContextMenu.Items>
+                                                                    <MenuItem>
+                                                                        <MenuItem.Style>
+                                                                            <Style TargetType="MenuItem">
+                                                                                <Setter Property="Template">
+                                                                                    <Setter.Value>
+                                                                                        <ControlTemplate TargetType="MenuItem">
+                                                                                            <Border>
+                                                                                                <StackPanel Orientation="Vertical">
+                                                                                                    <TextBlock Margin="0 8" 
+                                                                                                       FontWeight="ExtraBold"
+                                                                                                     
+                                                                                                       Text="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
+                                                                                                              Path=SelectedItem.SName}">
+
+                                                                                                    </TextBlock>
+                                                                                                    <Button x:Name="BtnDeletedCity" 
+                                                                                                    Content="Löschen"
+                                                                                                    Width="150" Height="40"
+                                                                                                    Style="{StaticResource BtnDeleteCityStyle}">
+
+                                                                                                    </Button>
+                                                                                                </StackPanel>
+                                                                                            </Border>
+                                                                                        </ControlTemplate>
+                                                                                    </Setter.Value>
+                                                                                </Setter>
+                                                                            </Style>
+                                                                        </MenuItem.Style>
+                                                                    </MenuItem>
+                                                                </ContextMenu.Items>
+                                                               
+                                                            </ContextMenu>
+                                                        </ListBox.ContextMenu>
                                                     </ListBox>
                                                 </Border>
                                             </Grid>
