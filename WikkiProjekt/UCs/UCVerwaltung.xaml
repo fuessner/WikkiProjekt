@@ -195,7 +195,8 @@
                                                 </StackPanel>
 
                                                 <Button x:Name="BtnAddImg" Content="Add Image" Width="240"
-                                                        Style="{StaticResource BtnAddImageStyle}">
+                                                        Style="{StaticResource BtnAddImageStyle}" 
+                                                        Click="BtnAddImg_Click">
 
                                                 </Button>
                                             </StackPanel>
@@ -346,8 +347,8 @@
                                                     </Image>
                                                 </Border>
                                                 <Button x:Name="BtnAddImgEdit" Content="Add Image"
-                                                        Style="{StaticResource BtnAddImageStyle}">
-
+                                                        Style="{StaticResource BtnAddImageStyle}"
+                                                        Click="BtnAddImg_Click">
                                                 </Button>
                                             </StackPanel>
                                         </Grid>

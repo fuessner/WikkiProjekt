@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -45,6 +46,10 @@ namespace WikkiProjekt.UCs
             CmbBxAddCity.ItemsSource = cities;
             CmbBxAddCityEdit.ItemsSource = cities;
             // ---------------------------------------------------------
+            // Radio Button vorbelegen
+            RdBtnNichtInfiziert.IsChecked = true;
+            RdBtnNichtAbgeschlossen.IsChecked = true;
+
         }
         private void _ShowTabPage(Button iSender)
         {
@@ -100,43 +105,100 @@ namespace WikkiProjekt.UCs
 
         private void CnvsImgDragDrop_Drop(object sender, DragEventArgs e)
         {
-            // Filedrop zeigt nur den Daten der Datei an
-            // Bei DataFormats könnte man auch eine Einschränkung machen auf z.B. TIF
-            // Ich nehme nur das erste Element das per DragDrop eingefügt wurde
-            // var files = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
-            // Alternativ alle nehmen und dann auf das erste zugreifen
-            var DropFiles = ((string[])e.Data.GetData(DataFormats.FileDrop));
-            var myFotoFile = string.Empty;
-            
-            if (DropFiles is null) return;
-            if (DropFiles.Length < 0) return;
-
-            // Es ist genau ein Foto ausgewählt:
-            if (DropFiles.Length == 1) myFotoFile = DropFiles[0];
-            // Hier wird auf das letzt Element zugegriffen
-            if (DropFiles.Length > 1) myFotoFile = DropFiles[DropFiles.Length - 1];
-            // Wir wollen aber nur ein Foto darum diese MessageBox
-            if (DropFiles.Length > 1)
+            try
             {
-                MessageBox.Show("Bitte wählen Sie nur ein Foto","Achtung",MessageBoxButton.OK,MessageBoxImage.Stop);
-                return;
-            }
-            if (myFotoFile == string.Empty) return;
+                // Filedrop zeigt nur den Daten der Datei an
+                // Bei DataFormats könnte man auch eine Einschränkung machen auf z.B. TIF
+                // Ich nehme nur das erste Element das per DragDrop eingefügt wurde
+                // var files = ((string[])e.Data.GetData(DataFormats.FileDrop))[0];
+                // Alternativ alle nehmen und dann auf das erste zugreifen
+                var DropFiles = ((string[])e.Data.GetData(DataFormats.FileDrop));
+                var myFotoFile = string.Empty;
 
-            var FileInfo = new FileInfo(myFotoFile);
-            if (FileInfo.Exists)
-            {
-                // statt war könnte man hier auch bool schreiben
-                var isFileTypeOK = (FileInfo.Extension == ".png") || (FileInfo.Extension == ".jpg") || (FileInfo.Extension == ".jpeg");
-                if (isFileTypeOK)
+                if (DropFiles is null) return;
+                if (DropFiles.Length < 0) return;
+
+                // Es ist genau ein Foto ausgewählt:
+                if (DropFiles.Length == 1) myFotoFile = DropFiles[0];
+                // Hier wird auf das letzt Element zugegriffen
+                if (DropFiles.Length > 1) myFotoFile = DropFiles[DropFiles.Length - 1];
+                // Wir wollen aber nur ein Foto darum diese MessageBox
+                if (DropFiles.Length > 1)
                 {
-                    _SelectedFilePath = FileInfo.FullName;
-                    var img = new BitmapImage(new Uri(FileInfo.FullName));
-                    ImgAdd.Source = img;
+                    MessageBox.Show("Bitte wählen Sie nur ein Foto", "Achtung", MessageBoxButton.OK, MessageBoxImage.Stop);
+                    return;
+                }
+                if (myFotoFile == string.Empty) return;
+
+                var FileInfo = new FileInfo(myFotoFile);
+                if (FileInfo.Exists)
+                {
+                    // statt war könnte man hier auch bool schreiben
+                    var isFileTypeOK = (FileInfo.Extension == ".png") || (FileInfo.Extension == ".jpg") || (FileInfo.Extension == ".jpeg");
+                    if (isFileTypeOK)
+                    {
+                        _SelectedFilePath = FileInfo.FullName;
+                        var img = new BitmapImage(new Uri(FileInfo.FullName));
+                        ImgAdd.Source = img;
+                    }
                 }
             }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Source);
+                throw;
+            }
+  
 
         }
-          
+        private void AddImageToImageControl(Image iImage)
+        {
+            try
+            {
+                var FileDialog = new OpenFileDialog()
+                {
+                    Filter = "Image Files|*.jpg;*.jpeg;*png",
+                    Multiselect = false,
+                    Title ="Bitte wählen Sie ein Bild"
+                   
+                };
+                var erg = FileDialog.ShowDialog();  
+                if (erg == true && erg.HasValue)
+                {
+                    _SelectedFilePath = FileDialog.FileName;
+                    var img = new BitmapImage(new Uri(_SelectedFilePath));
+                    iImage.Source = img;
+                }
+            }
+            catch (Exception error)
+            {
+                MessageBox.Show(error.Source);
+                throw;
+            }
+        }
+        private void BtnAddImg_Click(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                var myBtn = sender as Button;
+                if (myBtn != null)
+                {
+                    if (myBtn == BtnAddImg)
+                    {
+                        AddImageToImageControl(ImgAdd);
+                    }
+                    else
+                    {
+                        AddImageToImageControl(ImgAddEdit);
+                    }
+                }
+                   
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
     }
 }
