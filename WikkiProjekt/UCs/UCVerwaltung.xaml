@@ -3,6 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:localConv="clr-namespace:WikkiProjekt.Converters"
+             
              xmlns:MW="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:WikkiProjekt.UCs"
@@ -11,9 +13,9 @@
     <!--Das Entwickeln der Style in App.xaml ist teilweise zeitverzöger-->
     <!--man kann diesen Style auch erst einmal hier direkt schreiben in-->
     <!--User.Control.Resources und diese dann später kopieren-->
-    <!--<UserControl.Resources>-->
-
-    <!--</UserControl.Resources>-->
+    <UserControl.Resources>
+        <localConv:CityCtxtMenuHeaderTextConverter x:Key="CityCtxtMenuHeaderTextConverter"/>
+    </UserControl.Resources>
 
     <Grid Background="{StaticResource AppBrushColorBlue}" Margin="4 2">
         <!-- siehe oben:
@@ -191,7 +193,7 @@
                                                     </Border>
                                                 </StackPanel>
 
-                                                <Button x:Name="BtnAddImg" Content="Add Image"
+                                                <Button x:Name="BtnAddImg" Content="Add Image" Width="240"
                                                         Style="{StaticResource BtnAddImageStyle}">
 
                                                 </Button>
@@ -281,13 +283,13 @@
                                                     <StackPanel Orientation="Horizontal" Height="40"
                                                             HorizontalAlignment="Stretch">
                                                         <RadioButton x:Name="RdBtnAbgeschlossen"
-                                                                     GroupName="A"
+                                                                     GroupName="B"
                                                                      Content="ABGESCHLOSSEN"
                                                                      Style="{StaticResource RdBtnCyanStyle}">
 
                                                         </RadioButton>
                                                         <RadioButton x:Name="RdBtnNichtAbgeschlossen"
-                                                                     GroupName="A" Margin="20 0 0 0"
+                                                                     GroupName="B" Margin="20 0 0 0"
                                                                      Content="IM LAUF"
                                                                      Style="{StaticResource RdBtnRedStyle}">
 
@@ -430,13 +432,13 @@
                                                     <StackPanel Orientation="Horizontal" Height="40"
                                                             HorizontalAlignment="Stretch">
                                                         <RadioButton x:Name="RdBtnAbgeschlossenEdit"
-                                                                     GroupName="A"
+                                                                     GroupName="B"
                                                                      Content="ABGESCHLOSSEN"
                                                                      Style="{StaticResource RdBtnCyanStyle}">
 
                                                         </RadioButton>
                                                         <RadioButton x:Name="RdBtnNichtAbgeschlossenEdit"
-                                                                     GroupName="A" Margin="20 0 0 0"
+                                                                     GroupName="B" Margin="20 0 0 0"
                                                                      Content="IM LAUF"
                                                                      Style="{StaticResource RdBtnRedStyle}">
 
@@ -522,19 +524,16 @@
                                                                                     <Setter.Value>
                                                                                         <ControlTemplate TargetType="MenuItem">
                                                                                             <Border>
-                                                                                                <StackPanel Orientation="Vertical">
-                                                                                                    <TextBlock Margin="0 8" 
-                                                                                                       FontWeight="ExtraBold"
-                                                                                                     
-                                                                                                       Text="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
-                                                                                                              Path=SelectedItem.SName}">
-
-                                                                                                    </TextBlock>
+                                                                                                <StackPanel Orientation="Vertical"
+                                                                                                            Margin="8">
+                                                                                                    <TextBlock Margin="0 8"  FontWeight="ExtraBold"           
+                                                                                                        Text="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
+                                                                                                             Path=SelectedItem.SName, Converter={StaticResource CityCtxtMenuHeaderTextConverter}}">
+                                                                                                     </TextBlock>
                                                                                                     <Button x:Name="BtnDeletedCity" 
-                                                                                                    Content="Löschen"
-                                                                                                    Width="150" Height="40"
-                                                                                                    Style="{StaticResource BtnDeleteCityStyle}">
-
+                                                                                                        Content="Löschen"
+                                                                                                        Width="150" Height="40"
+                                                                                                        Style="{StaticResource BtnDeleteCityStyle}">
                                                                                                     </Button>
                                                                                                 </StackPanel>
                                                                                             </Border>

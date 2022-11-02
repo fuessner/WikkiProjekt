@@ -38,6 +38,8 @@ namespace WikkiProjekt.UCs
             // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
             // ListBoxCities
             ListBoxCities.ItemsSource = cities;
+            CmbBxAddCity.ItemsSource = cities;
+            CmbBxAddCityEdit.ItemsSource = cities;
             // ---------------------------------------------------------
         }
         private void _ShowTabPage(Button iSender)
