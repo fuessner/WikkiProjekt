@@ -177,7 +177,8 @@
                                                     <Canvas x:Name="CnvsImgDragDrop"
                                                             Width="110" Height="130"
                                                             Background="{StaticResource AppBrushColorCyan}"
-                                                            AllowDrop="True">
+                                                            AllowDrop="True" 
+                                                            Drop="CnvsImgDragDrop_Drop">
                                                         <MD:PackIcon Kind="FileUploadOutline"
                                                                      Height="130" Width="110"
                                                                      Foreground="{StaticResource AppBrushColorBlue}">
