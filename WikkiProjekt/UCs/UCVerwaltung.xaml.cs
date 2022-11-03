@@ -25,7 +25,7 @@ namespace WikkiProjekt.UCs
     public partial class UCVerwaltung : UserControl
     {
         // Globale Variablen
-        string _SelectedFilePath = string.Empty;
+        string? _SelectedFilePath = null; //  string.Empty;
 
         public UCVerwaltung()
         {
@@ -168,7 +168,7 @@ namespace WikkiProjekt.UCs
   
 
         }
-        private void AddImageToImageControl(Image iImage)
+        private void _AddImageToImageControl(Image iImage)
         {
             try
             {
@@ -202,11 +202,11 @@ namespace WikkiProjekt.UCs
                 {
                     if (myBtn == BtnAddImg)
                     {
-                        AddImageToImageControl(ImgAdd);
+                        _AddImageToImageControl(ImgAdd);
                     }
                     else
                     {
-                        AddImageToImageControl(ImgAddEdit);
+                        _AddImageToImageControl(ImgAddEdit);
                     }
                 }
                    
@@ -222,6 +222,47 @@ namespace WikkiProjekt.UCs
         {
             _GetAllAndShowCitiesData();
             _GetAllAndShowPersonsData();
+        }
+
+        private void _ClearAllValInfos()
+        {
+            // Das hier sind die Hinweisfelder unter den Eingabefelder (rot)
+            // Für den Reiter ADD
+            TxtBlckImgValInfo.Text = String.Empty;
+            TxtBxAddNameValInfo.Text = String.Empty;
+            TxtBxAddVornameValInfo.Text = String.Empty;
+            CmbBxAddCityValInfo.Text = String.Empty;
+            // Für den Reiter Edit
+            TxtBlckImgValInfoEdit.Text = String.Empty;
+            TxtBxAddNameValInfoEdit.Text = String.Empty;
+            TxtBxAddVornameValInfoEdit.Text = String.Empty;
+            CmbBxAddCityValInfoEdit.Text = String.Empty;
+
+        }
+        private Person _GetPersonToAdd()
+        {
+            return new Person()
+            {
+                PBild = (_SelectedFilePath is not null) ? File.ReadAllBytes(_SelectedFilePath) : null,
+                PName = TxtBxAddName.Text.Trim(),
+                PVorname = TxtBxAddVorname.Text.Trim(),
+                PInfiziert = (RdBtnInfiziert.IsChecked == true),
+                PTestAbgeschlosen = (RdBtnAbgeschlossen.IsChecked == true),
+                SID = (CmbBxAddCity.SelectedIndex < 0) ? -1 : (int)CmbBxAddCity.SelectedValue
+            };
+
+        }
+        private void BtnAddPerson_Click(object sender, RoutedEventArgs e)
+        {
+            //  Validation Info Leeren
+            _ClearAllValInfos();    
+            // Daten von Controls holen
+            var personToAdd = _GetPersonToAdd();
+            // Daten valedieren
+
+            // Daten speichern
+
+            // Daten anzeigen
         }
     }
 }
