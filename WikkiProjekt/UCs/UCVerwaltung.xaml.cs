@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WikkiDBBlib.DBAccess;
 using WikkiDBBlib.Models;
+using WikkiProjekt.Validators;
 
 namespace WikkiProjekt.UCs
 {
@@ -259,7 +260,8 @@ namespace WikkiProjekt.UCs
             // Daten von Controls holen
             var personToAdd = _GetPersonToAdd();
             // Daten valedieren
-
+            var personValidator = new AddNewPersonValidator();
+            var valResult = personValidator.Validate(personToAdd);
             // Daten speichern
 
             // Daten anzeigen
