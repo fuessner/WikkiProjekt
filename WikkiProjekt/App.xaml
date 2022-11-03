@@ -387,6 +387,7 @@
             <!--Collapsed = sichtbar false-->
             <!--Video 47 Min 11:37-->
             <Style x:Key="RdBtnRedStyle" TargetType="RadioButton">
+                <Setter Property="Cursor" Value="Hand"/>
                 <Setter Property="Background" Value="Transparent"/>
                 <Setter Property="Foreground" Value="White"/>
                 <Setter Property="FontSize" Value="16"/>

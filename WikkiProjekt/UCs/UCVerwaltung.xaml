@@ -47,7 +47,8 @@
                                     Height="30" Margin="8 0 0 0"
                                     VerticalAlignment="Bottom"
                                     FontWeight="Bold"
-                                    Style="{StaticResource ButtonStyle2}">
+                                    Style="{StaticResource ButtonStyle2}" 
+                                    Click="BtnDatenAufruf_Click" Cursor="Hand">
 
                             </Button>
                         </StackPanel>

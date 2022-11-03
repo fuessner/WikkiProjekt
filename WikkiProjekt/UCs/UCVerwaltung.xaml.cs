@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WikkiDBBlib.DBAccess;
+using WikkiDBBlib.Models;
 
 namespace WikkiProjekt.UCs
 {
@@ -33,11 +34,8 @@ namespace WikkiProjekt.UCs
             _init();
         }
 
-        // Wenn die UCVerwaltung das erste mal aufgerufen wird, wollen wir das
-        // diese Einstellungen übernommen werden.
-        private async void _init()
+        private async void _GetAllAndShowCitiesData() 
         {
-            _ShowTabPage(BtnTabAdd);
             // ---------------------------------------------------------
             var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
             // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
@@ -46,6 +44,25 @@ namespace WikkiProjekt.UCs
             CmbBxAddCity.ItemsSource = cities;
             CmbBxAddCityEdit.ItemsSource = cities;
             // ---------------------------------------------------------
+        }
+        private async void _GetAllAndShowPersonsData() 
+        {
+            // ---------------------------------------------------------
+            // var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: "Stadt"));
+            // Alternativ:
+            var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
+            // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
+            // ListBoxCities
+            DataGridPerson.ItemsSource = personen;
+            // ---------------------------------------------------------
+        }
+
+        // Wenn die UCVerwaltung das erste mal aufgerufen wird, wollen wir das
+        // diese Einstellungen übernommen werden.
+        private void _init()
+        {
+            _ShowTabPage(BtnTabAdd);
+
             // Radio Button vorbelegen
             RdBtnNichtInfiziert.IsChecked = true;
             RdBtnNichtAbgeschlossen.IsChecked = true;
@@ -199,6 +216,12 @@ namespace WikkiProjekt.UCs
 
                 throw;
             }
+        }
+
+        private void BtnDatenAufruf_Click(object sender, RoutedEventArgs e)
+        {
+            _GetAllAndShowCitiesData();
+            _GetAllAndShowPersonsData();
         }
     }
 }
