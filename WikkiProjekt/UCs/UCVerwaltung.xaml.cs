@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using WikkiDBBlib.DBAccess;
 using WikkiDBBlib.Models;
 using WikkiProjekt.Validators;
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace WikkiProjekt.UCs
 {
@@ -225,12 +226,22 @@ namespace WikkiProjekt.UCs
             _GetAllAndShowPersonsData();
         }
 
+        private void _ShowAllValInfos(ValidationResult iValidationResult)
+        {
+            foreach (var error in iValidationResult.Errors)
+            {
+                if (error.PropertyName == nameof(Person.PName)) { TxtBxAddNameValInfo.Text = error.ToString(); }
+                if (error.PropertyName == nameof(Person.PVorname)) { TxtBxAddVornameValInfo.Text = error.ToString(); }
+                if (error.PropertyName == nameof(Person.PBild)) { TxtBlckImgValInfo.Text = error.ToString(); }
+                if (error.PropertyName == nameof(Person.SID)) { CmbBxAddCityValInfo.Text = error.ToString(); }
+            }
+        }
         private void _ClearAllValInfos()
         {
             // Das hier sind die Hinweisfelder unter den Eingabefelder (rot)
             // Für den Reiter ADD
             TxtBlckImgValInfo.Text = String.Empty;
-            TxtBxAddNameValInfo.Text = String.Empty;
+            TxtBxAddNameValInfo.Text = String.Empty; 
             TxtBxAddVornameValInfo.Text = String.Empty;
             CmbBxAddCityValInfo.Text = String.Empty;
             // Für den Reiter Edit
@@ -261,7 +272,19 @@ namespace WikkiProjekt.UCs
             var personToAdd = _GetPersonToAdd();
             // Daten valedieren
             var personValidator = new AddNewPersonValidator();
-            var valResult = personValidator.Validate(personToAdd);
+            // Erste Version mit VAR da ich den Typ nicht genau kenne
+            // var valResult = personValidator.Validate(personToAdd);
+            // Zweite Version mit USING ob eingefügt
+            // jetzt kann ich valResult genau den Type zuweisen den ich später brauche
+            ValidationResult valResult = personValidator.Validate(personToAdd);
+            if (valResult.IsValid == true)
+            {
+
+            }
+            else
+            {
+                _ShowAllValInfos(valResult);
+            }
             // Daten speichern
 
             // Daten anzeigen

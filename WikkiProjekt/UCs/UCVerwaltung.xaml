@@ -241,6 +241,7 @@
                                                             HorizontalAlignment="Center">
                                                     <ComboBox x:Name="CmbBxAddCity"
                                                               Width="340"
+                                                              IsEditable="True"
                                                               Padding="0 0 0 0"
                                                               Margin="0 2 0 0"
                                                               DisplayMemberPath="SName"

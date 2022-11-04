@@ -20,7 +20,7 @@ namespace WikkiProjekt.Validators
             RuleFor(p => p.PName).NotEmpty().WithMessage("Name darf nicht leer sein!");
             RuleFor(p => p.PVorname).NotEmpty().WithMessage("Vorname darf nicht leer sein!");
             RuleFor(p => p.PBild).NotNull().WithMessage("Bitte fügen Sie ein Bild ein!");      // Bild
-            RuleFor(p => p.SID).LessThan(0).WithMessage("Bitte wählen Sie eine Stadt aus!");   // Stadt
+            RuleFor(p => p.SID).GreaterThan(-1).WithMessage("Bitte wählen Sie eine Stadt aus!");   // Stadt
         }
         
     }
