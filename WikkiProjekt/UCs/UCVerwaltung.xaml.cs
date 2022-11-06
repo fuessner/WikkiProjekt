@@ -16,8 +16,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WikkiDBBlib.DBAccess;
 using WikkiDBBlib.Models;
+using WikkiProjekt.Helpers;
 using WikkiProjekt.Validators;
 using ValidationResult = FluentValidation.Results.ValidationResult;
+using WikkiProjekt.Helpers;
 
 namespace WikkiProjekt.UCs
 {
@@ -32,35 +34,9 @@ namespace WikkiProjekt.UCs
         public UCVerwaltung()
         {
             InitializeComponent();
-
             _init();
-        }
 
-        private async void _GetAllAndShowCitiesData() 
-        {
-            // ---------------------------------------------------------
-            var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
-            // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
-            // ListBoxCities
-            ListBoxCities.ItemsSource = cities;
-            CmbBxAddCity.ItemsSource = cities;
-            CmbBxAddCityEdit.ItemsSource = cities;
-            // ---------------------------------------------------------
         }
-        private async void _GetAllAndShowPersonsData() 
-        {
-            // ---------------------------------------------------------
-            // var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: "Stadt"));
-            // Alternativ:
-            var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
-            // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
-            // ListBoxCities
-            DataGridPerson.ItemsSource = personen;
-            // ---------------------------------------------------------
-        }
-
-        // Wenn die UCVerwaltung das erste mal aufgerufen wird, wollen wir das
-        // diese Einstellungen übernommen werden.
         private void _init()
         {
             _ShowTabPage(BtnTabAdd);
@@ -68,8 +44,39 @@ namespace WikkiProjekt.UCs
             // Radio Button vorbelegen
             RdBtnNichtInfiziert.IsChecked = true;
             RdBtnNichtAbgeschlossen.IsChecked = true;
-
         }
+        private async void _GetAllAndShowCitiesData() 
+        {
+
+            using (new WaitProgressRing(progressRing))
+            {
+                // ---------------------------------------------------------         
+                var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
+                // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
+                // ListBoxCities
+                ListBoxCities.ItemsSource = cities;
+                CmbBxAddCity.ItemsSource = cities;
+                CmbBxAddCityEdit.ItemsSource = cities;
+                // ---------------------------------------------------------
+            }
+        }
+
+        private async void _GetAllAndShowPersonsData() 
+        {
+            using (new WaitProgressRing(progressRing))
+            {
+                // ---------------------------------------------------------
+                // var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: "Stadt"));
+                // Alternativ:
+                var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
+                // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
+                // ListBoxCities
+                DataGridPerson.ItemsSource = personen;
+                // ---------------------------------------------------------
+            }
+            // Nach der USING Methode wird die DISPOSE aufgerufen damit die Wartegrafik wieder ausgeblendet wird.
+        }
+
         private void _ShowTabPage(Button iSender)
         {
             _ShowTabBtnCursor(iSender);
@@ -222,8 +229,8 @@ namespace WikkiProjekt.UCs
 
         private void BtnDatenAufruf_Click(object sender, RoutedEventArgs e)
         {
-            _GetAllAndShowCitiesData();
-            _GetAllAndShowPersonsData();
+                _GetAllAndShowCitiesData();
+                _GetAllAndShowPersonsData();
         }
 
         private void _ShowAllValInfos(ValidationResult iValidationResult)
@@ -279,7 +286,10 @@ namespace WikkiProjekt.UCs
             ValidationResult valResult = personValidator.Validate(personToAdd);
             if (valResult.IsValid == true)
             {
+                using (new WaitProgressRing(progressRing))
+                {
 
+                }
             }
             else
             {
@@ -289,5 +299,6 @@ namespace WikkiProjekt.UCs
 
             // Daten anzeigen
         }
+
     }
 }
