@@ -258,6 +258,29 @@ namespace WikkiProjekt.UCs
             CmbBxAddCityValInfoEdit.Text = String.Empty;
 
         }
+
+        private void _ClearAllKontrols()
+        {
+            // Das hier sind die Hinweisfelder unter den Eingabefelder (rot)
+            // Für den Reiter ADD
+
+            ImgAdd.Source = null;
+            TxtBxAddName.Clear();
+            TxtBxAddVorname.Clear();
+            CmbBxAddCity.SelectedIndex = -1;
+            RdBtnAbgeschlossen.IsChecked = true;
+            RdBtnNichtInfiziert.IsChecked = true;
+
+            ImgAddEdit.Source = null;
+            TxtBxAddNameEdit.Clear();
+            TxtBxAddVornameEdit.Clear();
+            CmbBxAddCityEdit.SelectedIndex = -1;
+            RdBtnAbgeschlossenEdit.IsChecked = true;
+            RdBtnNichtInfiziertEdit.IsChecked = true;
+
+            _SelectedFilePath = null;
+
+        }
         private Person _GetPersonToAdd()
         {
             return new Person()
@@ -271,7 +294,7 @@ namespace WikkiProjekt.UCs
             };
 
         }
-        private void BtnAddPerson_Click(object sender, RoutedEventArgs e)
+        private async void BtnAddPerson_Click(object sender, RoutedEventArgs e)
         {
             //  Validation Info Leeren
             _ClearAllValInfos();    
@@ -288,12 +311,17 @@ namespace WikkiProjekt.UCs
             {
                 using (new WaitProgressRing(progressRing))
                 {
-
+                    var IsOK = await Task.Run(() => DBUnit.Person.Add(personToAdd));
+                    if (IsOK == true)
+                    {
+                        _GetAllAndShowPersonsData();
+                    }
                 }
             }
             else
             {
                 _ShowAllValInfos(valResult);
+                _ClearAllKontrols();
             }
             // Daten speichern
 

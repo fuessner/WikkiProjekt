@@ -478,16 +478,23 @@
             </Style>
 
             <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource MaterialDesignDataGridCell}">
-                <Setter Property="Height"                   Value="30"/>
-                <Setter Property="FontWeight"               Value="Bold"/>
-                <Setter Property="Background"               Value="Transparent"/>
-                <Setter Property="Foreground"               Value="{StaticResource AppBrushColorBlue}"/>
-                <Setter Property="BorderThickness"          Value="0"/>
+                <Setter Property="Height"                           Value="40"/>
+                <Setter Property="Padding"                          Value="0 10 0 0"/>
+                <Setter Property="FontSize"                         Value="16"/>
+                <Setter Property="HorizontalContentAlignment"       Value="Left"/>
+                <Setter Property="VerticalContentAlignment"         Value="Center"/>
+                <Setter Property="VerticalAlignment"                Value="Center"/>
+                <Setter Property="HorizontalAlignment"              Value="Stretch"/>
+                <Setter Property="FontWeight"                       Value="Bold"/>
+                <Setter Property="Background"                       Value="Transparent"/>
+                <Setter Property="Foreground"                       Value="{StaticResource AppBrushColorBlue}"/>
+                <Setter Property="FontFamily"                       Value="Franklin Gothic Heavy"/>
+                <Setter Property="BorderThickness"                  Value="0"/>
                 <Style.Triggers>
                     <Trigger Property="IsSelected" Value="True">
                         <Setter Property="Background"       Value="{StaticResource AppBrushColorCyan}"/>
                         <Setter Property="Foreground"       Value="White"/>
-                        <Setter Property="FontSize"         Value="20"/>
+                        <Setter Property="FontSize"         Value="18"/>
                     </Trigger>
                     <!--Multitrigger ist wie Triger, ich kann jedoch 2 Abhängigkeinten wie ISSELECT und ISMOUSEOVER -->
                     <!--prüfen. Mann muss nicht DataGridCell.IsSelected schreiben. Es reicht IsSelected -->
@@ -499,7 +506,7 @@
                         <MultiTrigger.Setters>
                             <Setter Property="Background" Value="{StaticResource AppBrushColorCyan}"/>
                             <Setter Property="Foreground" Value="White"/>
-                            <Setter Property="FontSize" Value="22"/>
+                            <Setter Property="FontSize" Value="20"/>
                         </MultiTrigger.Setters>
                     </MultiTrigger>
                 </Style.Triggers>
@@ -508,13 +515,10 @@
 
             <Style TargetType="{x:Type DataGridRow}" BasedOn="{StaticResource MaterialDesignDataGridRow}">
                 <Setter Property="Height"                   Value="30"/>
-                <Setter Property="FontWeight"               Value="Bold"/>
                 <Setter Property="FontSize"                 Value="18"/>
                 <Setter Property="BorderThickness"          Value="1"/>
                 <Setter Property="BorderBrush"              Value="{StaticResource AppBrushColorBlue}"/>
                 <Setter Property="Background"               Value="White"/>
-                <Setter Property="Foreground"               Value="{StaticResource AppBrushColorBlue}"/>
-                <Setter Property="FontFamily"               Value="Franklin Gothic Heavy"/>
                 <Setter Property="Cursor"                   Value="Hand"/>
                 <Style.Triggers>
                      <Trigger Property="DataGridRow.IsMouseOver" Value="True">
