@@ -21,6 +21,7 @@ using System.Windows.Shapes;
 using WikkiDBBlib;
 using WikkiDBBlib.Models;
 using WikkiProjekt.Grundlage;
+using WikkiProjekt.Helpers;
 using WikkiProjekt.UCs;
 
 namespace WikkiProjekt
@@ -43,6 +44,9 @@ namespace WikkiProjekt
             // Set the window them to Dark.Red
             // Zur Laufzeit kann die Farbe geändert werden. Ist nur eine Demo was geht
             // ThemeManager.Current.ChangeTheme(this, "Light.Teal");
+
+            // Mit dieser Variable kann ich global auf das Fenste zugreifen
+            GlobVar.GlobMainWindow = this;
         }
         #region PrivateFunktionen
         private void _Init()
@@ -88,6 +92,14 @@ namespace WikkiProjekt
 
                 throw;
             }
+        }
+
+        public void OpenBottomFlyout(string iInfoText)
+        {
+            LblFyoutInfo.Content = iInfoText;
+            _OpenCloseFlyout(1);
+
+
         }
         private void _MoveMenuCursor(int iLstViewSelIndex)
         {
@@ -247,6 +259,10 @@ namespace WikkiProjekt
             }
         }
 
-
+        private void BtnCloseFlyoutInfo_Click(object sender, RoutedEventArgs e)
+        {
+            // (1) weil es das zweite Flyout ist.
+            _OpenCloseFlyout(1);
+        }
     }
 }

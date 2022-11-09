@@ -311,21 +311,22 @@ namespace WikkiProjekt.UCs
             {
                 using (new WaitProgressRing(progressRing))
                 {
+                    // Daten speichern
                     var IsOK = await Task.Run(() => DBUnit.Person.Add(personToAdd));
                     if (IsOK == true)
                     {
                         _GetAllAndShowPersonsData();
+                        _ClearAllKontrols();
+                        GlobVar.GlobMainWindow?.OpenBottomFlyout($"{personToAdd.PName} wurde hinzugefügt");
                     }
                 }
             }
             else
             {
                 _ShowAllValInfos(valResult);
-                _ClearAllKontrols();
+                            
             }
-            // Daten speichern
-
-            // Daten anzeigen
+      
         }
 
     }

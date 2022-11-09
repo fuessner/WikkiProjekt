@@ -71,9 +71,10 @@
             <!--Menu Flyout-->
             <MW:Flyout Name="MenuFlyout" Margin="0 48 0 0" 
                        CloseButtonVisibility="Collapsed"
+                       TitleVisibility="Collapsed"
                        Position="Left"
                        Background="{StaticResource AppBrushColorBlue}">
-                <Border Name="BorderMenuFlyout" Margin="0 -36 0 0"   
+                <Border Name="BorderMenuFlyout"
                         MinWidth="180"
                         Background="Transparent"
                         HorizontalAlignment="Left"
@@ -204,8 +205,38 @@
 
   
             </MW:Flyout>
-            <MW:Flyout Name="InfoFlyout">
-                
+            <MW:Flyout x:Name="InfoFlyout"
+                       Position="Bottom"
+                       CloseButtonVisibility="Collapsed"
+                       TitleVisibility="Collapsed"
+                       IsAutoCloseEnabled="True"
+                       AutoCloseInterval="15000"
+                       Background="{StaticResource AppBrushColorBlue}"
+                       BorderThickness="1"
+                       BorderBrush="{StaticResource AppBrushColorCyanHover}">
+                <Grid HorizontalAlignment="Left" Height="42"
+                      Background="{StaticResource AppBrushColorBlue}">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left"
+                                Margin="0 0 100 0"
+                                Background="{StaticResource AppBrushColorBlue}"
+                                VerticalAlignment="Center">
+                        <MD:PackIcon Kind="InformationVariant"
+                                     Width="40" Height="40" Foreground="White">
+                        </MD:PackIcon>
+                        <Label Name="LblFyoutInfo" FontSize="20" Foreground="White"
+                               Background="Transparent" Margin="10 0 0 0">
+                        </Label>
+                    </StackPanel>
+                    <Button x:Name="BtnCloseFlyoutInfo" HorizontalAlignment="Right" Cursor="Hand"
+                            ToolTip="Schließen"
+                            BorderThickness="1" BorderBrush="{StaticResource AppBrushColorCyanHover}"
+                            Style="{StaticResource MahApps.Styles.Button.Circle}" 
+                            Click="BtnCloseFlyoutInfo_Click">
+                        <MD:PackIcon Kind="ArrowDownBoldCircle" Width="40"
+                                     Height="40" Foreground="White">
+                        </MD:PackIcon>
+                    </Button>
+                </Grid>
             </MW:Flyout>
             <!--Info Flyout-->
         </MW:FlyoutsControl>
