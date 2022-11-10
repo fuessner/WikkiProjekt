@@ -19,7 +19,7 @@ using WikkiDBBlib.Models;
 using WikkiProjekt.Helpers;
 using WikkiProjekt.Validators;
 using ValidationResult = FluentValidation.Results.ValidationResult;
-using WikkiProjekt.Helpers;
+
 
 namespace WikkiProjekt.UCs
 {
@@ -45,7 +45,7 @@ namespace WikkiProjekt.UCs
             RdBtnNichtInfiziert.IsChecked = true;
             RdBtnNichtAbgeschlossen.IsChecked = true;
         }
-        private async void _GetAllAndShowCitiesData() 
+        private async void _GetAllAndShowCitiesData()
         {
 
             using (new WaitProgressRing(progressRing))
@@ -61,18 +61,27 @@ namespace WikkiProjekt.UCs
             }
         }
 
-        private async void _GetAllAndShowPersonsData() 
+        private async void _GetAllAndShowPersonsData()
         {
             using (new WaitProgressRing(progressRing))
             {
                 // ---------------------------------------------------------
                 // var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: "Stadt"));
                 // Alternativ:
-                var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
-                // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
-                // ListBoxCities
-                DataGridPerson.ItemsSource = personen;
-                // ---------------------------------------------------------
+                // Version vor Kurs 62
+                //  var personen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
+                var Lstpersonen = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
+
+                if (Lstpersonen != null)
+                {
+                    var lstPersonStadtVM = AppHelper.GetListPersonStadtVM_from_ListPersonStadt(Lstpersonen);
+
+                    // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
+                    // ListBoxCities
+                    DataGridPerson.ItemsSource = lstPersonStadtVM;
+                    // ---------------------------------------------------------
+                }
+
             }
             // Nach der USING Methode wird die DISPOSE aufgerufen damit die Wartegrafik wieder ausgeblendet wird.
         }
@@ -83,12 +92,12 @@ namespace WikkiProjekt.UCs
 
             if (iSender == BtnTabAdd)
             {
-                TabItemAdd.IsSelected = true;   
+                TabItemAdd.IsSelected = true;
             }
             else if (iSender == BtnTabEdit)
             {
                 TabItemEdit.IsSelected = true;
-            } 
+            }
             else if (iSender == BtnTabCity)
             {
                 TabItemCity.IsSelected = true;
@@ -107,7 +116,7 @@ namespace WikkiProjekt.UCs
 
             if (iSender == BtnTabAdd)
             {
-                RctglBtnTabAdd.Fill = (Brush)Application.Current.Resources["AppBrushColorCyan"];              
+                RctglBtnTabAdd.Fill = (Brush)Application.Current.Resources["AppBrushColorCyan"];
             }
             else if (iSender == BtnTabEdit)
             {
@@ -174,7 +183,7 @@ namespace WikkiProjekt.UCs
                 MessageBox.Show(error.Source);
                 throw;
             }
-  
+
 
         }
         private void _AddImageToImageControl(Image iImage)
@@ -185,10 +194,10 @@ namespace WikkiProjekt.UCs
                 {
                     Filter = "Image Files|*.jpg;*.jpeg;*png",
                     Multiselect = false,
-                    Title ="Bitte wählen Sie ein Bild"
-                   
+                    Title = "Bitte wählen Sie ein Bild"
+
                 };
-                var erg = FileDialog.ShowDialog();  
+                var erg = FileDialog.ShowDialog();
                 if (erg == true && erg.HasValue)
                 {
                     _SelectedFilePath = FileDialog.FileName;
@@ -218,7 +227,7 @@ namespace WikkiProjekt.UCs
                         _AddImageToImageControl(ImgAddEdit);
                     }
                 }
-                   
+
             }
             catch (Exception)
             {
@@ -229,8 +238,8 @@ namespace WikkiProjekt.UCs
 
         private void BtnDatenAufruf_Click(object sender, RoutedEventArgs e)
         {
-                _GetAllAndShowCitiesData();
-                _GetAllAndShowPersonsData();
+            _GetAllAndShowCitiesData();
+            _GetAllAndShowPersonsData();
         }
 
         private void _ShowAllValInfos(ValidationResult iValidationResult)
@@ -248,7 +257,7 @@ namespace WikkiProjekt.UCs
             // Das hier sind die Hinweisfelder unter den Eingabefelder (rot)
             // Für den Reiter ADD
             TxtBlckImgValInfo.Text = String.Empty;
-            TxtBxAddNameValInfo.Text = String.Empty; 
+            TxtBxAddNameValInfo.Text = String.Empty;
             TxtBxAddVornameValInfo.Text = String.Empty;
             CmbBxAddCityValInfo.Text = String.Empty;
             // Für den Reiter Edit
@@ -297,7 +306,7 @@ namespace WikkiProjekt.UCs
         private async void BtnAddPerson_Click(object sender, RoutedEventArgs e)
         {
             //  Validation Info Leeren
-            _ClearAllValInfos();    
+            _ClearAllValInfos();
             // Daten von Controls holen
             var personToAdd = _GetPersonToAdd();
             // Daten valedieren
@@ -324,14 +333,37 @@ namespace WikkiProjekt.UCs
             else
             {
                 _ShowAllValInfos(valResult);
-                            
+
             }
-      
+
         }
 
-        private void TxtBxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        private async void TxtBxSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
+            var text = TxtBxSearch.Text.Trim();
+            IEnumerable<Person>? personLst;
 
+            using (new WaitProgressRing(progressRing))
+            {
+                if (text != String.Empty)
+                {
+                    personLst = await Task.Run(() => DBUnit.Person.GetAll(filter: p =>
+                                p.PName.Contains(text) || p.PVorname.Contains(text),
+                                includeModel: nameof(Stadt)));
+                }
+                else
+                {
+                    personLst = await Task.Run(() => DBUnit.Person.GetAll(includeModel: nameof(Stadt)));
+
+                }
+
+                if (personLst != null)
+                {
+                    var lstPersonStadtVM = AppHelper.GetListPersonStadtVM_from_ListPersonStadt(personLst);
+                    DataGridPerson.ItemsSource = lstPersonStadtVM;
+                }
+
+            }
         }
     }
 }

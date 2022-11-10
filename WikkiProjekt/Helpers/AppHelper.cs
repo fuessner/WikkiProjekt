@@ -13,9 +13,12 @@ namespace WikkiProjekt.Helpers
     {
         // Umwandeln von ViewModel in Liste von ViewModel
         // VM = ViewModel
-        public static List<PersonStadtVM> GetListPersonStadtVML_from_ListPersonStadtL(IEnumerable<Person> iPersonList)
+        public static List<PersonStadtVM> GetListPersonStadtVM_from_ListPersonStadt(IEnumerable<Person> iPersonList)
         {
+            // Geändert in Video 62
             var ListPersonStadtVM = new List<PersonStadtVM>();
+            // Das funktioniert nicht, da in einem IEnumeralbe kein ADD funktioniert
+            // IEnumerable<PersonStadtVM> listPersonStadtVM = new List<PersonStadtVM>();
 
             if (iPersonList != null)
             { 
@@ -28,7 +31,10 @@ namespace WikkiProjekt.Helpers
                         PVorname = person.PVorname,
                         PInfiziert = person.PInfiziert, 
                         PTestAbgeschlosen = person.PTestAbgeschlosen,   
-                        PBild = person.PBild
+                        PBild = person.PBild,
+                        SID = person.SID,
+                        SName = (person.Stadt is not null) ? person.Stadt.SName : String.Empty
+
                     };
                     ListPersonStadtVM.Add(PersonStadtVM);
                 }

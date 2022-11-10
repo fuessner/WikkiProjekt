@@ -62,9 +62,9 @@
                                   HorizontalScrollBarVisibility="Disabled">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Width="100" Binding="{Binding PID}"/>
-                                <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding PName}"/>
-                                <DataGridTextColumn Header="VORNAME" Width="*" Binding="{Binding PVorname}"/>
-                                <DataGridTextColumn Header="STADT" Width="*" Binding="{Binding Stadt.SName}"/>
+                                <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding PVorname}"/>
+                                <DataGridTextColumn Header="VORNAME" Width="*" Binding="{Binding PName}"/>
+                                <DataGridTextColumn Header="STADT" Width="*" Binding="{Binding SName}"/>
                             </DataGrid.Columns>
                         </DataGrid>
                         <!--ProgressRing erscheint wenn die Daten geladen werden als Wartesymbol-->
