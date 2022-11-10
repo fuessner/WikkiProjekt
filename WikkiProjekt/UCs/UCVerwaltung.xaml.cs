@@ -329,5 +329,9 @@ namespace WikkiProjekt.UCs
       
         }
 
+        private void TxtBxSearch_TextChanged(object sender, TextChangedEventArgs e)
+        {
+
+        }
     }
 }

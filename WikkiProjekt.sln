@@ -5,12 +5,13 @@ VisualStudioVersion = 17.3.32811.315
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikkiProjekt", "WikkiProjekt\WikkiProjekt.csproj", "{CC372ACB-9AC8-4E95-A621-CFF2E79391FB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WikkiDBBlib", "WikkiDBBlib\WikkiDBBlib.csproj", "{A21BB152-ACF9-477A-920C-F619CC65F07B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WikkiDBBlib", "WikkiDBBlib\WikkiDBBlib.csproj", "{A21BB152-ACF9-477A-920C-F619CC65F07B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Description = Udemy Kurs
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{CC372ACB-9AC8-4E95-A621-CFF2E79391FB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
