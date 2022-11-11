@@ -350,6 +350,11 @@ namespace WikkiProjekt.UCs
                     personLst = await Task.Run(() => DBUnit.Person.GetAll(filter: p =>
                                 p.PName.Contains(text) || p.PVorname.Contains(text),
                                 includeModel: nameof(Stadt)));
+
+                    // Könnte aber die Liste auch hier noch mal sortieren
+                    // -> personLst?.OrderByDescending(p => p.PVorname).ToList();
+                    // Nimm nur den ersten Satz
+                    // -> personLst?.OrderByDescending(p => p.PVorname).Take(1).ToList();
                 }
                 else
                 {
@@ -364,6 +369,15 @@ namespace WikkiProjekt.UCs
                 }
 
             }
+        }
+
+        private void DataGridPerson_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            TabItemEdit.IsSelected = false;
+            TabItemEdit.IsSelected = true;  // Tab Control wechseln funktioniert aber nicht daher der Aufruf der Funktion
+            _ShowTabBtnCursor(BtnTabEdit);
+            _ClearAllValInfos();
+
         }
     }
 }

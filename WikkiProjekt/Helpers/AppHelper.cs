@@ -37,11 +37,19 @@ namespace WikkiProjekt.Helpers
 
                     };
                     ListPersonStadtVM.Add(PersonStadtVM);
+                   
+
                 }
             }
 
             return ListPersonStadtVM;
-
+            // Mann könnte aber auch direkt in den Rückgabewerte eine "where" anweisung per LINQ schreiben
+            // Dies würde dann wie folgt aussehen:
+            // return ListPersonStadtVM.Where(p=>p.SName.Contains("SuchString")).ToList(); 
+            // Ich kann auch sagen nehme nur 2 aus der Liste für den Rückgabewert
+            // return ListPersonStadtVM.Take(3).ToList();
+            // Kann die Liste aber auch gleich sortieren
+            // return ListPersonStadtVM.OrderByDescending(p => p.PName).ToList();
         }
 
     }

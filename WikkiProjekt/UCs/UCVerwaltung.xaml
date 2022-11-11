@@ -59,7 +59,8 @@
                         <DataGrid x:Name="DataGridPerson" 
                                   SnapsToDevicePixels="True"
                                   UseLayoutRounding="True"
-                                  HorizontalScrollBarVisibility="Disabled">
+                                  HorizontalScrollBarVisibility="Disabled" 
+                                  SelectionChanged="DataGridPerson_SelectionChanged">
                             <DataGrid.Columns>
                                 <DataGridTextColumn Header="ID" Width="100" Binding="{Binding PID}"/>
                                 <DataGridTextColumn Header="NAME" Width="*" Binding="{Binding PVorname}"/>
