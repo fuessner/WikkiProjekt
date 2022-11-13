@@ -16,6 +16,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WikkiDBBlib.DBAccess;
 using WikkiDBBlib.Models;
+using WikkiDBBlib.Models.ViewModels;
 using WikkiProjekt.Helpers;
 using WikkiProjekt.Validators;
 using ValidationResult = FluentValidation.Results.ValidationResult;
@@ -377,6 +378,18 @@ namespace WikkiProjekt.UCs
             TabItemEdit.IsSelected = true;  // Tab Control wechseln funktioniert aber nicht daher der Aufruf der Funktion
             _ShowTabBtnCursor(BtnTabEdit);
             _ClearAllValInfos();
+
+            if (DataGridPerson.SelectedItem is not null)
+            {
+                var selPerson = DataGridPerson.SelectedItem as PersonStadtVM;
+                if(selPerson != null)
+                {
+                    // GridEditPerson ist der Name vom Grid im UCVerwaltung.xaml
+                    // Nachdem das Hauptgrid die Daten erhalten hat, können jetzt die einzelnen Elemente wie
+                    // z.B. das Image darauf zugreifen mit Source="{Binding PBitmagImage}"
+                    GridEditPerson.DataContext = selPerson; 
+                }
+            }
 
         }
     }

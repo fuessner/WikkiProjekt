@@ -63,17 +63,26 @@ namespace WikkiDBBlib.Models.ViewModels
         // Da hier nur ein GETer verwendet wird benutze ich =>
         public BitmapImage PBitmapImage => _GetBitmapImage(PBild);
 
-        // Helber Funktionen
+        // Helper Funktionen
         private BitmapImage _GetBitmapImage(byte[]? iBildByte)
         { 
             var BitmapImg = new BitmapImage();
             if (iBildByte != null || iBildByte?.Length != 0)
                 { 
-                    using(var stream = new MemoryStream())
-                        { 
-
-                        }
-                }
+                    if (iBildByte is not null)
+                    {
+                        using(var stream = new MemoryStream(iBildByte))
+                            { 
+                            // Schreiben das Image auf die HDD
+                            stream.Position = 0;
+                            BitmapImg.BeginInit();
+                            BitmapImg.CreateOptions = BitmapCreateOptions.PreservePixelFormat;
+                            BitmapImg.CacheOption = BitmapCacheOption.OnLoad;
+                            BitmapImg.StreamSource = stream;
+                            BitmapImg.EndInit();
+                         }
+                    }
+            }
             return BitmapImg;
         }
     }

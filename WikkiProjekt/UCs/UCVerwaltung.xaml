@@ -160,12 +160,16 @@
                                           HorizontalAlignment="Left"
                                           SnapsToDevicePixels="True"
                                           UseLayoutRounding="True">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="99*"/>
+                                            <ColumnDefinition Width="241*"/>
+                                        </Grid.ColumnDefinitions>
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="190"/>
                                             <RowDefinition Height="*"/>
                                         </Grid.RowDefinitions>
                                         <!--Grid für Image-->
-                                        <Grid Grid.Row="0">
+                                        <Grid Grid.Row="0" Grid.ColumnSpan="2">
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock x:Name="TxtBlckImgValInfo" 
                                                            Width="340"
@@ -206,7 +210,7 @@
 
                                         </Grid>
                                         <!--Grid für Daten und Speichern-->
-                                        <Grid Grid.Row="1">
+                                        <Grid Grid.Row="1" Grid.ColumnSpan="2">
                                             <StackPanel Orientation="Vertical" Margin="0 4 0 0">
                                                 <!--Name-->
                                                 <StackPanel Orientation="Vertical" Height="56"
@@ -321,7 +325,8 @@
 
                                 <!--Zweiter TAB EDIT-->
                                 <MW:MetroTabItem Name="TabItemEdit">
-                                    <Grid Background="{StaticResource AppBrushColorBlue}"
+                                    <Grid Name="GridEditPerson"
+                                          Background="{StaticResource AppBrushColorBlue}"
                                           Margin="8 2"
                                           HorizontalAlignment="Left"
                                           SnapsToDevicePixels="True"
@@ -347,8 +352,10 @@
                                                          BorderThickness="1"
                                                          BorderBrush="{StaticResource AppBrushColorCyan}">
 
-                                                    <Image x:Name="ImgAddEdit" Stretch="Fill"
-                                                               Width="130" Height="130">
+                                                    <Image x:Name="ImgAddEdit" 
+                                                           Source="{Binding PBitmagImage}"
+                                                           Stretch="Fill"
+                                                           Width="130" Height="130">
                                                     </Image>
                                                 </Border>
                                                 <Button x:Name="BtnAddImgEdit" Content="Add Image"
@@ -536,7 +543,7 @@
                                                                                                     <TextBlock Margin="0 8"  FontWeight="ExtraBold"           
                                                                                                         Text="{Binding RelativeSource={RelativeSource AncestorType=ListBox},
                                                                                                              Path=SelectedItem.SName, Converter={StaticResource CityCtxtMenuHeaderTextConverter}}">
-                                                                                                     </TextBlock>
+                                                                                                    </TextBlock>
                                                                                                     <Button x:Name="BtnDeletedCity" 
                                                                                                         Content="Löschen"
                                                                                                         Width="150" Height="40"
@@ -551,7 +558,7 @@
                                                                         </MenuItem.Style>
                                                                     </MenuItem>
                                                                 </ContextMenu.Items>
-                                                               
+
                                                             </ContextMenu>
                                                         </ListBox.ContextMenu>
                                                     </ListBox>
