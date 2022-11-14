@@ -69,7 +69,7 @@ namespace WikkiDBBlib.Models.ViewModels
                         return _GetBitmapImage(PBild);
                         }
                     set {
-                        if (value.UriSource != null)
+                        if (value is not null && value.UriSource != null)
                            {
                             PBild = File.ReadAllBytes(value.UriSource.OriginalString);
                            }             

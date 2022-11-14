@@ -382,7 +382,15 @@ namespace WikkiProjekt.UCs
 
             if (DataGridPerson.SelectedItem is not null)
             {
-                _SelectedPerson = DataGridPerson.SelectedItem as PersonStadtVM;
+                var SelectedPerson = DataGridPerson.SelectedItem as PersonStadtVM;
+                // Variable zwischenspeichern für Änderung die am Datensatz gemacht wurden
+                // Dazu verwenden wir einen AutoMapper. Diese muss über Abhängigkeiten NuGet Pakete hinzugefügt werden
+                if(SelectedPerson is not null)
+                {
+                    _SelectedPerson = MapperHelper.Map_PersVM_to_PersVM(SelectedPerson);
+                }
+               
+
                 if(_SelectedPerson != null)
                 {
                     // GridEditPerson ist der Name vom Grid im UCVerwaltung.xaml
