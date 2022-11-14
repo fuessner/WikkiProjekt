@@ -61,7 +61,20 @@ namespace WikkiDBBlib.Models.ViewModels
         }
 
         // Da hier nur ein GETer verwendet wird benutze ich =>
-        public BitmapImage PBitmapImage => _GetBitmapImage(PBild);
+        // public BitmapImage PBitmapImage => _GetBitmapImage(PBild);
+        // Wurde aber jetzt durch SET erweitert da sonst der XAML code nicht funktioniert mit TwoWay
+        public BitmapImage PBitmapImage 
+        { 
+                    get {
+                        return _GetBitmapImage(PBild);
+                        }
+                    set {
+                        if (value.UriSource != null)
+                           {
+                            PBild = File.ReadAllBytes(value.UriSource.OriginalString);
+                           }             
+                        } 
+        }
 
         // Helper Funktionen
         private BitmapImage _GetBitmapImage(byte[]? iBildByte)

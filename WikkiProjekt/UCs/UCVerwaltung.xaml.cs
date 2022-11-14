@@ -30,7 +30,8 @@ namespace WikkiProjekt.UCs
     public partial class UCVerwaltung : UserControl
     {
         // Globale Variablen
-        string? _SelectedFilePath = null; //  string.Empty;
+        private string? _SelectedFilePath = null; //  string.Empty;
+        private PersonStadtVM? _SelectedPerson = null; //  string.Empty;
 
         public UCVerwaltung()
         {
@@ -381,13 +382,13 @@ namespace WikkiProjekt.UCs
 
             if (DataGridPerson.SelectedItem is not null)
             {
-                var selPerson = DataGridPerson.SelectedItem as PersonStadtVM;
-                if(selPerson != null)
+                _SelectedPerson = DataGridPerson.SelectedItem as PersonStadtVM;
+                if(_SelectedPerson != null)
                 {
                     // GridEditPerson ist der Name vom Grid im UCVerwaltung.xaml
                     // Nachdem das Hauptgrid die Daten erhalten hat, können jetzt die einzelnen Elemente wie
                     // z.B. das Image darauf zugreifen mit Source="{Binding PBitmagImage}"
-                    GridEditPerson.DataContext = selPerson; 
+                    GridEditPerson.DataContext = _SelectedPerson; 
                 }
             }
 

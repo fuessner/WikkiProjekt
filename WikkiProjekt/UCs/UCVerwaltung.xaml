@@ -353,7 +353,7 @@
                                                          BorderBrush="{StaticResource AppBrushColorCyan}">
 
                                                     <Image x:Name="ImgAddEdit" 
-                                                           Source="{Binding PBitmagImage}"
+                                                           Source="{Binding PBitmapImage, Mode=TwoWay}"
                                                            Stretch="Fill"
                                                            Width="130" Height="130">
                                                     </Image>
@@ -371,6 +371,7 @@
                                                 <StackPanel Orientation="Vertical" Height="56"
                                                             HorizontalAlignment="Center">
                                                     <TextBox x:Name="TxtBxAddNameEdit"
+                                                             Text="{Binding PName, Mode=TwoWay}"
                                                              Width="340"
                                                              MD:HintAssist.Hint="NAME:"
                                                              Cursor="Hand">
@@ -386,6 +387,7 @@
                                                 <StackPanel Orientation="Vertical" Height="56"
                                                             HorizontalAlignment="Center">
                                                     <TextBox x:Name="TxtBxAddVornameEdit"
+                                                             Text="{Binding PVorname, Mode=TwoWay}"
                                                              Width="340"
                                                              MD:HintAssist.Hint="VORNAME:"
                                                              Cursor="Hand">
@@ -426,12 +428,14 @@
                                                     <StackPanel Orientation="Horizontal" Height="40"
                                                             HorizontalAlignment="Stretch">
                                                         <RadioButton x:Name="RdBtnInfiziertEdit"
+                                                                     IsChecked="{Binding PInfiziert, Mode=TwoWay}"
                                                                      GroupName="A"
                                                                      Content="INFIZIERT"
                                                                      Style="{StaticResource RdBtnRedStyle}">
 
                                                         </RadioButton>
                                                         <RadioButton x:Name="RdBtnNichtInfiziertEdit"
+                                                                     IsChecked="{Binding PNichtInfiziert, Mode=TwoWay}"
                                                                      GroupName="A" Margin="20 0 0 0"
                                                                      Content="NICHT INFIZIERT"
                                                                      Style="{StaticResource RdBtnCyanStyle}">
@@ -446,12 +450,14 @@
                                                     <StackPanel Orientation="Horizontal" Height="40"
                                                             HorizontalAlignment="Stretch">
                                                         <RadioButton x:Name="RdBtnAbgeschlossenEdit"
+                                                                     IsChecked="{Binding PTestAbgeschlosen, Mode=TwoWay}"
                                                                      GroupName="B"
                                                                      Content="ABGESCHLOSSEN"
                                                                      Style="{StaticResource RdBtnCyanStyle}">
 
                                                         </RadioButton>
                                                         <RadioButton x:Name="RdBtnNichtAbgeschlossenEdit"
+                                                                     IsChecked="{Binding PTestNichtAbgeschlossen, Mode=TwoWay}"
                                                                      GroupName="B" Margin="20 0 0 0"
                                                                      Content="IM LAUF"
                                                                      Style="{StaticResource RdBtnRedStyle}">
