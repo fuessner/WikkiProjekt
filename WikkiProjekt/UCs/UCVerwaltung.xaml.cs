@@ -1,4 +1,5 @@
-﻿using Microsoft.Win32;
+﻿using Microsoft.EntityFrameworkCore.ChangeTracking.Internal;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,6 +33,7 @@ namespace WikkiProjekt.UCs
         // Globale Variablen
         private string? _SelectedFilePath = null; //  string.Empty;
         private PersonStadtVM? _SelectedPerson = null; //  string.Empty;
+        private List<Stadt>? _AllCities = null;
 
         public UCVerwaltung()
         {
@@ -53,12 +55,13 @@ namespace WikkiProjekt.UCs
             using (new WaitProgressRing(progressRing))
             {
                 // ---------------------------------------------------------         
-                var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
+                // var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
+                _AllCities = await Task.Run(() => DBUnit.Stadt.GetAll()?.ToList());
                 // Alternativ: var cities2 = DBUnit.Stadt.GetAll();
                 // ListBoxCities
-                ListBoxCities.ItemsSource = cities;
-                CmbBxAddCity.ItemsSource = cities;
-                CmbBxAddCityEdit.ItemsSource = cities;
+                ListBoxCities.ItemsSource = _AllCities;
+                CmbBxAddCity.ItemsSource = _AllCities;
+                CmbBxAddCityEdit.ItemsSource = _AllCities;
                 // ---------------------------------------------------------
             }
         }
@@ -291,6 +294,8 @@ namespace WikkiProjekt.UCs
 
             _SelectedFilePath = null;
 
+            _SelectedPerson = null;
+
         }
         private Person _GetPersonToAdd()
         {
@@ -397,6 +402,23 @@ namespace WikkiProjekt.UCs
                     // Nachdem das Hauptgrid die Daten erhalten hat, können jetzt die einzelnen Elemente wie
                     // z.B. das Image darauf zugreifen mit Source="{Binding PBitmagImage}"
                     GridEditPerson.DataContext = _SelectedPerson; 
+
+                    // CmbBxAddCityEdit.SelectedItem = _AllCities?.Where(s => s.SID == _SelectedPerson.SID);
+                    CmbBxAddCityEdit.SelectedItem = _AllCities?.FirstOrDefault(s => s.SID == _SelectedPerson.SID);
+                }
+            }
+
+        }
+
+        private void CmbBxAddCityEdit_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var selStadt = CmbBxAddCityEdit.SelectedItem as Stadt;
+            if (selStadt != null)
+            {
+                if (_SelectedPerson != null)
+                {
+                    _SelectedPerson.SID = selStadt.SID;
+                    _SelectedPerson.SName = selStadt.SName;
                 }
             }
 

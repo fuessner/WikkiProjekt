@@ -403,13 +403,14 @@
                                                             Margin="0 4"
                                                             HorizontalAlignment="Center">
                                                     <ComboBox x:Name="CmbBxAddCityEdit"
+                                                              SelectionChanged="CmbBxAddCityEdit_SelectionChanged"
                                                               Width="340"
                                                               Padding="0 0 0 0"
                                                               Margin="0 2 0 0"
                                                               DisplayMemberPath="SName"
                                                               SelectedValuePath="SID"
                                                               MD:HintAssist.Hint="STADT:"
-                                                              Cursor="Hand">
+                                                              Cursor="Hand" >
                                                     </ComboBox>
                                                     <TextBlock x:Name="CmbBxAddCityValInfoEdit"
                                                                Width="340" Foreground="DarkRed"
