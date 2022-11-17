@@ -1,0 +1,127 @@
+﻿<Window x:Class="WikkiProjekt.AppWindows.InfoDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WikkiProjekt.AppWindows"
+        mc:Ignorable="d"
+        Title="InfoDialog"
+        
+        xmlns:MW="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:MD="http://materialdesigninxaml.net/winfx/xaml/themes"
+          
+        Height="220" MinHeight="220"
+        Width="500" MinWidth="500"
+        SnapsToDevicePixels="True"
+        UseLayoutRounding="True"
+
+        WindowStartupLocation="CenterOwner"
+        
+        Background="Transparent"
+        AllowsTransparency="True"
+        ResizeMode="NoResize"
+        WindowStyle="None">
+    
+    <!--Hier haben wir einfach ein Fenster WPF hinzugefügt-->
+    <Grid>
+        <MD:TransitioningContent OpeningEffect="{MD:TransitionEffect Kind=ExpandIn,Duration=0:0:0:5}">
+            <Grid Background="AliceBlue">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="40"/>
+                </Grid.RowDefinitions>
+                <!--Titel und Close-->
+                <Grid Grid.Row="0" Background="{StaticResource AppBrushColorCyan}"
+                      Cursor="Hand"
+                      PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown">
+                    <MD:Card MD:ShadowAssist.ShadowDepth="Depth2"
+                               Background="{StaticResource AppBrushColorCyan}">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="40"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Label Grid.Column="0" x:Name="LBLTitle" Content="Titel" 
+                                       Margin="8 0" HorizontalAlignment="Stretch"
+                                       Height="40" BorderThickness="0"
+                                       Foreground="White" FontWeight="Bold"
+                                       FontSize="20" VerticalContentAlignment="Center">
+                            </Label>
+
+                            <Button Name="BtnClose" 
+                                        Grid.Column="1" Width="35" Height="35"
+                                        Background="White"
+                                        Style="{StaticResource MaterialDesignFloatingActionButton}"
+                                        Click="BtnFermer_Click" Cursor="Hand">
+                                    <MD:PackIcon Kind="Close" Foreground="Red"/>
+                            </Button>
+                        </Grid>
+                    </MD:Card>
+                </Grid>
+                <!--Info Text or TextInput-->
+                <Grid Grid.Row="1" MinHeight="120" Margin="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="50"/>
+                    </Grid.RowDefinitions>
+                    <!--Info Text-->
+                    <TextBlock x:Name="txtMessage" Grid.Row="0" MinWidth="300"
+                               VerticalAlignment="Center" HorizontalAlignment="Center"
+                               FontSize="20" TextWrapping="Wrap"
+                               FontWeight="Bold"
+                               Foreground="{StaticResource AppBrushColorBlue}"
+                               Style="{StaticResource MaterialDesignButtonTextBlock}">
+                    </TextBlock>
+                    <Border x:Name="BorderInputText" Grid.Row="1"
+                            Height="40" Margin="20 0 8 8">
+                        <TextBox x:Name="txtInputText" MinWidth="300"
+                                 MD:HintAssist.Hint="Angabe"
+                                 Foreground="{StaticResource AppBrushColorBlue}"
+                                 Cursor="Hand">
+                        </TextBox>
+                    </Border>
+                </Grid>
+                <!--Btn Ja / Nein-->
+                <!--Hier werden zwei GRIDS definiert und übereinander gelegt und sichtbar gemacht-->
+                <Grid Grid.Row="2">
+                    <Grid Width="280" HorizontalAlignment="Right" Margin="10 0">
+                        <Grid x:Name="Grid_JA_NEIN" Visibility="Visible">
+                            <Button x:Name="BtnNein" Content="NEIN"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    HorizontalAlignment="Left"
+                                    Background="Red" Foreground="White"
+                                    FontWeight="Bold" Width="100"
+                                    Click="BtnNEIN_Click">
+                            </Button>
+                            <Button x:Name="BtnJA" Content="JA"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    HorizontalAlignment="Right"
+                                    Foreground="White"
+                                    FontWeight="Bold" Width="100"
+                                    Click="BtnJA_Click">
+                            </Button>
+                        </Grid>
+                        <Grid x:Name="Grid_BtnOK_BtnAbbrechen" Visibility="Collapsed">
+                            <Button x:Name="BtnAnnuler" Content="Abbrechen"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    HorizontalAlignment="Left"
+                                    Background="Red" Foreground="White"
+                                    FontWeight="Bold" Width="110"
+                                    Click="BtnAnnuler_Click">
+                            </Button>
+                            <Button x:Name="BtnOK" Content="OK"
+                                    Style="{StaticResource MaterialDesignRaisedButton}"
+                                    HorizontalAlignment="Right"
+                                    Foreground="White"
+                                    FontWeight="Bold" Width="110"
+                                    Click="BtnAccepter_Click">
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </Grid>
+        </MD:TransitioningContent>
+    </Grid>
+</Window>
