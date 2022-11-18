@@ -12,6 +12,7 @@
              d:DesignHeight="550" d:DesignWidth="1100">
      <Grid Background="{StaticResource AppBrushColorBlue}" Margin="4 2">
         <!-- siehe oben:
+         
            xmlns:MW wurde per Hand kopiert, damit das Design hier auch angewendet werden kann-->
         <!--TransitioningContent wird genommen das das user control vergrößer wird bei der darstellung-->
         <MD:TransitioningContent OpeningEffect="{MD:TransitionEffect Kind=ExpandIn, Duration=0:0:0.4}">
