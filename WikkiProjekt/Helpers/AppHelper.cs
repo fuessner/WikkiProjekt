@@ -12,7 +12,7 @@ namespace WikkiProjekt.Helpers
     public class AppHelper
     {
         // Umwandeln von ViewModel in Liste von ViewModel
-        // VM = ViewModel
+        // VM = ViewModel.....
         public static List<PersonStadtVM> GetListPersonStadtVM_from_ListPersonStadt(IEnumerable<Person> iPersonList)
         {
             // Geändert in Video 62

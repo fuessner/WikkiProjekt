@@ -32,7 +32,7 @@ namespace WikkiProjekt.AppWindows
             // Damit wird die Dialogbox direkt im Center der App angezeigt
             // Die haben wir im xaml code mit WindowStartupLocation="CenterOwner" festgehalten
             this.Owner = GlobVar.GlobMainWindow;
-
+          
             _Message = iMessage;
             _DialogType = iWDialogType;
             InputTextBorder.Visibility = Visibility.Collapsed;

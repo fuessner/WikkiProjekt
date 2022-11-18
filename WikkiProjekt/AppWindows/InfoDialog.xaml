@@ -34,7 +34,7 @@
                 <!--Titel und Close-->
                 <Grid Grid.Row="0" Background="{StaticResource AppBrushColorCyan}"
                       Cursor="Hand"
-                      PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown">
+                     PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" >
                     <MD:Card MD:ShadowAssist.ShadowDepth="Depth2"
                                Background="{StaticResource AppBrushColorCyan}">
                         <Grid>
@@ -42,19 +42,22 @@
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
-
-                            <Label Grid.Column="0" x:Name="LBLTitle" Content="Titel" 
-                                       Margin="8 0" HorizontalAlignment="Stretch"
+                            
+                            <Grid Name="GridTitelBar">
+                                <Label Grid.Column="0" x:Name="LBLTitle" Content="Titel" 
+                                       Margin="8 0" 
                                        Height="40" BorderThickness="0"
                                        Foreground="White" FontWeight="Bold"
                                        FontSize="20" VerticalContentAlignment="Center">
-                            </Label>
+                                </Label>
+                            </Grid>
+
 
                             <Button Name="BtnClose" 
                                         Grid.Column="1" Width="35" Height="35"
                                         Background="White"
                                         Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                        Click="BtnFermer_Click" Cursor="Hand">
+                                        Cursor="Hand">
                                     <MD:PackIcon Kind="Close" Foreground="Red"/>
                             </Button>
                         </Grid>
@@ -93,14 +96,14 @@
                                     HorizontalAlignment="Left"
                                     Background="Red" Foreground="White"
                                     FontWeight="Bold" Width="100"
-                                    Click="BtnNEIN_Click">
+                                   >
                             </Button>
                             <Button x:Name="BtnJA" Content="JA"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     HorizontalAlignment="Right"
                                     Foreground="White"
                                     FontWeight="Bold" Width="100"
-                                    Click="BtnJA_Click">
+                                    >
                             </Button>
                         </Grid>
                         <Grid x:Name="Grid_BtnOK_BtnAbbrechen" Visibility="Collapsed">
@@ -109,14 +112,14 @@
                                     HorizontalAlignment="Left"
                                     Background="Red" Foreground="White"
                                     FontWeight="Bold" Width="110"
-                                    Click="BtnAnnuler_Click">
+                                    >
                             </Button>
                             <Button x:Name="BtnOK" Content="OK"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     HorizontalAlignment="Right"
                                     Foreground="White"
                                     FontWeight="Bold" Width="110"
-                                    Click="BtnAccepter_Click">
+                                   >
                             </Button>
                         </Grid>
                     </Grid>
