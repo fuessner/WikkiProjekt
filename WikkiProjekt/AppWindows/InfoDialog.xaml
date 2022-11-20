@@ -34,7 +34,7 @@
                 <!--Titel und Close-->
                 <Grid Grid.Row="0" Background="{StaticResource AppBrushColorCyan}"
                       Cursor="Hand"
-                     PreviewMouseLeftButtonDown="Grid_PreviewMouseLeftButtonDown" >
+                     PreviewMouseLeftButtonDown="GridTitelBar_PreviewMouseLeftButtonDown" >
                     <MD:Card MD:ShadowAssist.ShadowDepth="Depth2"
                                Background="{StaticResource AppBrushColorCyan}">
                         <Grid>
@@ -43,7 +43,8 @@
                                 <ColumnDefinition Width="40"/>
                             </Grid.ColumnDefinitions>
                             
-                            <Grid Name="GridTitelBar">
+                            <Grid Name="GridTitelBar" 
+                                  PreviewMouseLeftButtonDown="GridTitelBar_PreviewMouseLeftButtonDown">
                                 <Label Grid.Column="0" x:Name="LBLTitle" Content="Titel" 
                                        Margin="8 0" 
                                        Height="40" BorderThickness="0"
@@ -57,7 +58,7 @@
                                         Grid.Column="1" Width="35" Height="35"
                                         Background="White"
                                         Style="{StaticResource MaterialDesignFloatingActionButton}"
-                                        Cursor="Hand">
+                                        Cursor="Hand" Click="BtnClose_Click">
                                     <MD:PackIcon Kind="Close" Foreground="Red"/>
                             </Button>
                         </Grid>
@@ -79,10 +80,10 @@
                     </TextBlock>
                     <Border x:Name="InputTextBorder" Grid.Row="1"
                             Height="40" Margin="20 0 8 8">
-                        <TextBox x:Name="txtInputText" MinWidth="300"
+                        <TextBox x:Name="TxtBoxInput" MinWidth="300"
                                  MD:HintAssist.Hint="Angabe"
                                  Foreground="{StaticResource AppBrushColorBlue}"
-                                 Cursor="Hand">
+                                 Cursor="Hand" TextChanged="TxtBoxInput_TextChanged">
                         </TextBox>
                     </Border>
                 </Grid>
@@ -95,15 +96,15 @@
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     HorizontalAlignment="Left"
                                     Background="Red" Foreground="White"
-                                    FontWeight="Bold" Width="100"
-                                   >
+                                    FontWeight="Bold" Width="100" 
+                                    Click="BtnNein_Click">
                             </Button>
                             <Button x:Name="BtnJA" Content="JA"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     HorizontalAlignment="Right"
                                     Foreground="White"
-                                    FontWeight="Bold" Width="100"
-                                    >
+                                    FontWeight="Bold" Width="100" 
+                                    Click="BtnJA_Click">
                             </Button>
                         </Grid>
                         <Grid x:Name="Grid_BtnOK_BtnAbbrechen" Visibility="Collapsed">
@@ -111,15 +112,15 @@
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     HorizontalAlignment="Left"
                                     Background="Red" Foreground="White"
-                                    FontWeight="Bold" Width="110"
-                                    >
+                                    FontWeight="Bold" Width="110" 
+                                    Click="BtnAbbrechen_Click">
                             </Button>
                             <Button x:Name="BtnOK" Content="OK"
                                     Style="{StaticResource MaterialDesignRaisedButton}"
                                     HorizontalAlignment="Right"
                                     Foreground="White"
-                                    FontWeight="Bold" Width="110"
-                                   >
+                                    FontWeight="Bold" Width="110" 
+                                    Click="BtnOK_Click">
                             </Button>
                         </Grid>
                     </Grid>

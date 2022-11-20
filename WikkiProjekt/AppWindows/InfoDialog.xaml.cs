@@ -24,7 +24,7 @@ namespace WikkiProjekt.AppWindows
     {
         private string _Message { get; set; } = "";
         private IWDialogType _DialogType { get; set; } = new();
-        public string _DialogInputText { get; set; } = string.Empty;
+        public string DialogInputText { get; set; } = string.Empty;
         public InfoDialog(string iMessage, IWDialogType iWDialogType)
         {
             InitializeComponent();
@@ -40,8 +40,9 @@ namespace WikkiProjekt.AppWindows
             Grid_BtnOK_BtnAbbrechen.Visibility = Visibility.Collapsed;
 
             txtBlockMessage.Text = _Message;
+            TxtBoxInput.Clear();
 
-            switch(_DialogType)
+            switch (_DialogType)
             {
                 case IWDialogType.Information:
                     LBLTitle.Content = "Information";
@@ -71,6 +72,61 @@ namespace WikkiProjekt.AppWindows
                     break;
             }
 
+        }
+        // Wenn die Dialogbox mit der Mouse bewegt wird.
+        private void GridTitelBar_PreviewMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            try
+            {
+                if (e.LeftButton == MouseButtonState.Pressed)
+                {
+                    this.DragMove();
+                }
+            }
+            catch (Exception)
+            {
+                //
+                // throw;
+            }
+        }
+
+        private void BtnClose_Click(object sender, RoutedEventArgs e)
+        {
+            // Wenn ich auf das X in der Dialogbox klicke, wird diese geschlossen.
+            // Ich gebe aber noch mit, das es kein Ergebnis für die Dialogbox gibt.
+            this.DialogResult = false;
+            this.Close();
+
+        }
+
+        private void BtnNein_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+
+        private void BtnJA_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            this.Close();
+        }
+
+        private void BtnAbbrechen_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+            this.Close();
+        }
+
+        private void BtnOK_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = true;
+            DialogInputText = TxtBoxInput.Text;
+            this.Close();
+        }
+
+        private void TxtBoxInput_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            DialogInputText = TxtBoxInput.Text;
         }
     }
 }

@@ -474,7 +474,8 @@
                                                             Margin="0 20 5 0"
                                                             Width="165"
                                                             FontSize="18" FontWeight="Bold"
-                                                            Style="{StaticResource ButtonRedOverStyle}">
+                                                            Style="{StaticResource ButtonRedOverStyle}" 
+                                                            Click="BtnDeletePerson_Click">
                                                         </Button>
                                                         <Button x:Name="BtnEditPerson" Content="AKTUALISIEREN"
                                                             Margin="0 20 0 0"

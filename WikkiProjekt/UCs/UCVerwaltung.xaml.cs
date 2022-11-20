@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using WikkiDBBlib.DBAccess;
 using WikkiDBBlib.Models;
 using WikkiDBBlib.Models.ViewModels;
+using WikkiProjekt.AppWindows;
 using WikkiProjekt.Helpers;
 using WikkiProjekt.Validators;
 using ValidationResult = FluentValidation.Results.ValidationResult;
@@ -422,6 +423,20 @@ namespace WikkiProjekt.UCs
                 }
             }
 
+        }
+
+        private void BtnDeletePerson_Click(object sender, RoutedEventArgs e)
+        {
+            if (new InfoDialog("Wollen Sie Löschen?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
+            {
+
+            }
+            // Wenn die Dialogbox mit Textfeld angezeigt werden soll:
+            //var infoDialog = new InfoDialog("Wollen Sie Löschen?", DTOs.IWDialogType.Textangabe);
+            //if (infoDialog.ShowDialog() == true)
+            //{
+            //    var text =infoDialog.DialogInputText;
+            //}
         }
     }
 }
