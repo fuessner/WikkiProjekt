@@ -481,7 +481,8 @@
                                                             Margin="0 20 0 0"
                                                             Width="165"
                                                             FontSize="18" FontWeight="Bold"
-                                                            Style="{StaticResource ButtonStyle}">
+                                                            Style="{StaticResource ButtonStyle}" 
+                                                            Click="BtnEditPerson_Click">
                                                         </Button>
                                                     </StackPanel>
 

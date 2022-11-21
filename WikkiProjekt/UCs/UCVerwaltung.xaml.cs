@@ -34,6 +34,7 @@ namespace WikkiProjekt.UCs
         // Globale Variablen
         private string? _SelectedFilePath = null; //  string.Empty;
         private PersonStadtVM? _SelectedPerson = null; //  string.Empty;
+        private PersonStadtVM? _SelectedPersonOhneDataContext = null; //  string.Empty;
         private List<Stadt>? _AllCities = null;
 
         public UCVerwaltung()
@@ -248,14 +249,28 @@ namespace WikkiProjekt.UCs
             _GetAllAndShowPersonsData();
         }
 
-        private void _ShowAllValInfos(ValidationResult iValidationResult)
+        private void _ShowAllValInfos(ValidationResult iValidationResult, bool IsEdit=false)
         {
-            foreach (var error in iValidationResult.Errors)
+
+            if (IsEdit)
             {
-                if (error.PropertyName == nameof(Person.PName)) { TxtBxAddNameValInfo.Text = error.ToString(); }
-                if (error.PropertyName == nameof(Person.PVorname)) { TxtBxAddVornameValInfo.Text = error.ToString(); }
-                if (error.PropertyName == nameof(Person.PBild)) { TxtBlckImgValInfo.Text = error.ToString(); }
-                if (error.PropertyName == nameof(Person.SID)) { CmbBxAddCityValInfo.Text = error.ToString(); }
+                foreach (var error in iValidationResult.Errors)
+                {
+                    if (error.PropertyName == nameof(Person.PName)) { TxtBxAddNameValInfoEdit.Text = error.ToString(); }
+                    if (error.PropertyName == nameof(Person.PVorname)) { TxtBxAddVornameValInfoEdit.Text = error.ToString(); }
+                    if (error.PropertyName == nameof(Person.PBild)) { TxtBlckImgValInfoEdit.Text = error.ToString(); }
+                    if (error.PropertyName == nameof(Person.SID)) { CmbBxAddCityValInfoEdit.Text = error.ToString(); }
+                }
+            }
+            else
+            {
+                foreach (var error in iValidationResult.Errors)
+                {
+                    if (error.PropertyName == nameof(Person.PName)) { TxtBxAddNameValInfo.Text = error.ToString(); }
+                    if (error.PropertyName == nameof(Person.PVorname)) { TxtBxAddVornameValInfo.Text = error.ToString(); }
+                    if (error.PropertyName == nameof(Person.PBild)) { TxtBlckImgValInfo.Text = error.ToString(); }
+                    if (error.PropertyName == nameof(Person.SID)) { CmbBxAddCityValInfo.Text = error.ToString(); }
+                }
             }
         }
         private void _ClearAllValInfos()
@@ -271,6 +286,7 @@ namespace WikkiProjekt.UCs
             TxtBxAddNameValInfoEdit.Text = String.Empty;
             TxtBxAddVornameValInfoEdit.Text = String.Empty;
             CmbBxAddCityValInfoEdit.Text = String.Empty;
+
 
         }
 
@@ -294,8 +310,8 @@ namespace WikkiProjekt.UCs
             RdBtnNichtInfiziertEdit.IsChecked = true;
 
             _SelectedFilePath = null;
-
             _SelectedPerson = null;
+            _SelectedPersonOhneDataContext = null;
 
         }
         private Person _GetPersonToAdd()
@@ -394,6 +410,7 @@ namespace WikkiProjekt.UCs
                 if(SelectedPerson is not null)
                 {
                     _SelectedPerson = MapperHelper.Map_PersVM_to_PersVM(SelectedPerson);
+                    _SelectedPersonOhneDataContext = MapperHelper.Map_PersVM_to_PersVM(SelectedPerson);
                 }
                
 
@@ -427,16 +444,72 @@ namespace WikkiProjekt.UCs
 
         private void BtnDeletePerson_Click(object sender, RoutedEventArgs e)
         {
-            if (new InfoDialog("Wollen Sie Löschen?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
+            if (_SelectedPerson is not null)
             {
+                var persName = _SelectedPerson.PName;
+                var persID = _SelectedPerson.PID;
+                if (new InfoDialog($"Wollen Sie die Person {persName} löschen?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
+                {
+                    DBUnit.Person.DeletebyID(persID);
 
+                    _GetAllAndShowPersonsData();
+                    _ClearAllValInfos();
+                    _ClearAllKontrols();
+
+                    // Untere Infoleiste anzeigen das Datensatz gelöscht wurde
+                    GlobVar.GlobMainWindow?.OpenBottomFlyout($"{persName} wurde gelöscht!");
+                   
+                }
             }
+            else
+            {
+                new InfoDialog("Bitte wählen Sie eine Person die Sie löschen möchten.", DTOs.IWDialogType.Information).ShowDialog();
+            }
+
+
+
             // Wenn die Dialogbox mit Textfeld angezeigt werden soll:
             //var infoDialog = new InfoDialog("Wollen Sie Löschen?", DTOs.IWDialogType.Textangabe);
             //if (infoDialog.ShowDialog() == true)
             //{
             //    var text =infoDialog.DialogInputText;
             //}
+        }
+
+        private void BtnEditPerson_Click(object sender, RoutedEventArgs e)
+        {
+            if (_SelectedPerson is not null && _SelectedPersonOhneDataContext is not null)
+            {
+                var personToEdit = MapperHelper.Map_PersVM_To_Pers(_SelectedPerson);
+                var personValidator = new AddNewPersonValidator();
+                ValidationResult valResult = personValidator.Validate(personToEdit);
+                if (valResult.IsValid == true)
+                {
+                    var persName = _SelectedPersonOhneDataContext.PName;
+                    if (new InfoDialog($"Wollen Sie {persName} aktualisieren?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
+                    {
+                        DBUnit.Person.Update(personToEdit);
+
+                        _GetAllAndShowPersonsData();
+                        _ClearAllValInfos();
+                        _ClearAllKontrols();
+
+                        // Untere Infoleiste anzeigen das Datensatz gelöscht wurde
+                        GlobVar.GlobMainWindow?.OpenBottomFlyout($"{persName} wurde geändert!");
+
+                    }
+                }
+                else
+                {
+                    _ShowAllValInfos(valResult, IsEdit : true);
+                    // Oder
+                    // _ShowAllValInfos(valResult,true);
+                }
+            }
+            else
+            {
+                new InfoDialog("Bitte wählen Sie eine Person die Sie löschen möchten.", DTOs.IWDialogType.Information).ShowDialog();
+            }
         }
     }
 }
