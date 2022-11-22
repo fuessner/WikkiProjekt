@@ -54,7 +54,7 @@ namespace WikkiProjekt.UCs
         private async void _GetAllAndShowCitiesData()
         {
 
-            using (new WaitProgressRing(progressRing))
+            using (new WaitProgressRing(progressRingCity))
             {
                 // ---------------------------------------------------------         
                 // var cities = await Task.Run(() => DBUnit.Stadt.GetAll());
@@ -327,6 +327,23 @@ namespace WikkiProjekt.UCs
             };
 
         }
+
+        private bool _IstStadtVorhanden(string iStadt)
+        {
+          
+            foreach (var item in ListBoxCities.Items)
+            {
+                var city = item as Stadt;
+                if (city != null)
+                {
+                    if (city.SName.ToLower() == iStadt)
+                    {
+                        return true;
+                    }
+                }             
+            }
+            return false;
+        }
         private async void BtnAddPerson_Click(object sender, RoutedEventArgs e)
         {
             //  Validation Info Leeren
@@ -510,6 +527,66 @@ namespace WikkiProjekt.UCs
             {
                 new InfoDialog("Bitte wählen Sie eine Person die Sie löschen möchten.", DTOs.IWDialogType.Information).ShowDialog();
             }
+        }
+
+
+
+        private async void TxtBxAddNewCity_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var text = TxtBxAddNewCity.Text.Trim();
+
+            using (new WaitProgressRing(progressRingCity))
+            {
+                if (text != String.Empty)
+                {
+                    ListBoxCities.ItemsSource = await Task.Run(() => DBUnit.Stadt.GetAll(filter: p => p.SName.Contains(text)));
+                }
+                else
+                {
+                    ListBoxCities.ItemsSource = await Task.Run(() => DBUnit.Stadt.GetAll());
+
+                }
+
+            }
+        }
+
+        private async void BtnAddNewCitý_Click(object sender, RoutedEventArgs e)
+        {
+            var text = TxtBxAddNewCity.Text.Trim();
+            if(text !=String.Empty)
+            {
+                if (text != String.Empty)
+                {
+                        if (_IstStadtVorhanden(text))
+                        {
+                            new InfoDialog($"Stadt {text} ist bereits vorhanden!", DTOs.IWDialogType.Information).ShowDialog();
+                        }    
+                        else
+                        {
+                            using (new WaitProgressRing(progressRingCity))
+                            {
+                                var stadt = new Stadt() { SName = text};
+                                var erg = await Task.Run(() => DBUnit.Stadt.Add(stadt));
+                                if (erg)
+                                {
+                                    TxtBxAddNewCity.Clear();
+                                    _GetAllAndShowCitiesData();
+                                    GlobVar.GlobMainWindow?.OpenBottomFlyout($"Stadt {text} wurde hinzugefügt.");
+                                }
+                            }
+                                
+                        }
+                }          
+            }
+            else 
+            {
+                new InfoDialog("Bitte geben Sie eine Stadt ein!", DTOs.IWDialogType.Information).ShowDialog();
+            }
+        }
+
+        private void BtnDeletedCity_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

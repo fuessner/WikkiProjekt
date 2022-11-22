@@ -516,13 +516,15 @@
                                                             HorizontalAlignment="Left">
                                                     <TextBox Name="TxtBxAddNewCity"
                                                              Width="210"
-                                                             MD:HintAssist.Hint="Stadt Name">
+                                                             MD:HintAssist.Hint="Stadt Name" 
+                                                             TextChanged="TxtBxAddNewCity_TextChanged">
                                                     </TextBox>
                                                     <Button Name="BtnAddNewCitý" Content="SPEICHERN"
                                                             Height="30" Width="120"
                                                             FontSize="20" FontWeight="Bold"
                                                             Margin="10 10 0 0"
-                                                            Style="{StaticResource ButtonStyle2}">
+                                                            Style="{StaticResource ButtonStyle2}" 
+                                                            Click="BtnAddNewCitý_Click">
                                                     </Button>
                                                 </StackPanel>
                                             </Grid>
@@ -556,7 +558,8 @@
                                                                                                     <Button x:Name="BtnDeletedCity" 
                                                                                                         Content="Löschen"
                                                                                                         Width="150" Height="40"
-                                                                                                        Style="{StaticResource BtnDeleteCityStyle}">
+                                                                                                        Style="{StaticResource BtnDeleteCityStyle}" 
+                                                                                                        Click="BtnDeletedCity_Click">
                                                                                                     </Button>
                                                                                                 </StackPanel>
                                                                                             </Border>
@@ -572,6 +575,10 @@
                                                         </ListBox.ContextMenu>
                                                     </ListBox>
                                                 </Border>
+                                                <MW:ProgressRing x:Name="progressRingCity" Visibility="Hidden"
+                                                         Foreground="{StaticResource AppBrushColorCyanHover}"
+                                                         Height="80" Width="80">
+                                                </MW:ProgressRing>
                                             </Grid>
                                         </Grid>
                                     </Grid>
