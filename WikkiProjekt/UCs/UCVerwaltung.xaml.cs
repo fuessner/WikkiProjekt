@@ -584,9 +584,30 @@ namespace WikkiProjekt.UCs
             }
         }
 
-        private void BtnDeletedCity_Click(object sender, RoutedEventArgs e)
+        private async void BtnDeletedCity_Click(object sender, RoutedEventArgs e)
         {
+            if (ListBoxCities.Items.Count > 0)
+            {
+                var selCity = ListBoxCities.SelectedItem as Stadt;
+               //  var test = ListBoxCities.SelectedItem.ToString;
+               if (selCity is not null)
+                {
+                    var stadtname = selCity.SName;
+                    var stadtID = selCity.SID;
+                    if (new InfoDialog($"Wollen Sie die Stadt {stadtname} wirklich löschen?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
+                    {
+                        var erg = await Task.Run(() => DBUnit.Stadt.DeletebyID(stadtID));
+                        if (erg)
+                        {
+                            _GetAllAndShowCitiesData();
+                            GlobVar.GlobMainWindow?.OpenBottomFlyout($"Stadt {stadtname} wurde gelöscht.");
+                        }
+                }
+                else
+                {
 
+                }
+            }
         }
     }
 }
