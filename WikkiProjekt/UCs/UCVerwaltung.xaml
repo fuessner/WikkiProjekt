@@ -577,6 +577,8 @@
                                                 </Border>
                                                 <MW:ProgressRing x:Name="progressRingCity" Visibility="Hidden"
                                                          Foreground="{StaticResource AppBrushColorCyanHover}"
+                                                         Margin="0 50 0 0"
+                                                         VerticalAlignment="Top"
                                                          Height="80" Width="80">
                                                 </MW:ProgressRing>
                                             </Grid>
