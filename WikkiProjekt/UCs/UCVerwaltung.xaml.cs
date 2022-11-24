@@ -586,28 +586,52 @@ namespace WikkiProjekt.UCs
 
         private async void BtnDeletedCity_Click(object sender, RoutedEventArgs e)
         {
+
             if (ListBoxCities.Items.Count > 0)
             {
                 var selCity = ListBoxCities.SelectedItem as Stadt;
-               //  var test = ListBoxCities.SelectedItem.ToString;
-               if (selCity is not null)
+                //  var test = ListBoxCities.SelectedItem.ToString;
+                if (selCity is not null)
                 {
-                    var stadtname = selCity.SName;
-                    var stadtID = selCity.SID;
-                    if (new InfoDialog($"Wollen Sie die Stadt {stadtname} wirklich löschen?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
+
+                    // Prüfen ob einer Person bereits diese Stadt zugewiesen wurd.
+                    //
+                    //bool personCount = await Task.Run(() => DBUnit.Person.PruefGetByID( p => p.SID == selCity.SID));
+                    // alternativ
+                    int? anzahlPers = 0;
+                    using (new WaitProgressRing(progressRingCity))
                     {
-                        var erg = await Task.Run(() => DBUnit.Stadt.DeletebyID(stadtID));
-                        if (erg)
+                        anzahlPers = await Task.Run(() => DBUnit.Person.GetAll(p => p.SID == selCity.SID)?.Count());
+                    }
+                   
+                    if (anzahlPers > 0)
+                    {
+                        new InfoDialog($"Die Stadt {selCity.SName} ist bereits einer Person zugeordnet?", DTOs.IWDialogType.Information).ShowDialog();
+
+                    }
+                    else
+                    {
+                        var stadtname = selCity.SName;
+                        var stadtID = selCity.SID;
+                        if (new InfoDialog($"Wollen Sie die Stadt {stadtname} wirklich löschen?", DTOs.IWDialogType.Confirmation).ShowDialog() == true)
                         {
-                            _GetAllAndShowCitiesData();
-                            GlobVar.GlobMainWindow?.OpenBottomFlyout($"Stadt {stadtname} wurde gelöscht.");
+                            bool erg = false;
+                            using (new WaitProgressRing(progressRingCity))                           
+                                erg = await Task.Run(() => DBUnit.Stadt.DeletebyID(stadtID));
+                            
+                            if (erg)
+                            {
+                                _GetAllAndShowCitiesData();
+                                GlobVar.GlobMainWindow?.OpenBottomFlyout($"Stadt {stadtname} wurde gelöscht.");
+                            }
                         }
-                }
-                else
-                {
+                    }
+
 
                 }
             }
+
+
         }
     }
 }

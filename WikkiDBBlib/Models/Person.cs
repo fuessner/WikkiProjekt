@@ -32,6 +32,13 @@ namespace WikkiDBBlib.Models
         [Required]
         public Byte[]? PBild { get; set; }
 
+        // Wenn wir ein neues Fehl hinzufügen wollen in der Datenbank
+        // So wird das hier eingetrag z. B. eMail
+        public string PEmail { get; set; } = String.Empty;
+        // wenn das eingetragen wurde, muss noch ein Update über die Datenbank erfolgen
+        // mit add-migration und einen Namen was geändert wurde. In diesem Beispiel
+        // add-migration AddEmail  danach update-database
+
 
         [Required]
         public int SID { get; set; }

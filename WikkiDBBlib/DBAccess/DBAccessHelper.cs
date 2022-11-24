@@ -95,10 +95,31 @@ namespace WikkiDBBlib.DBAccess
             }
             catch (Exception ex)
             {
-                MessageBox.Show("GetByID" + Environment.NewLine + ex.Message);
+                MessageBox.Show("DeleteByID" + Environment.NewLine + ex.Message);
                 return false;
             }
             
+        }
+
+        public bool PruefGetByID(Expression<Func<Model, bool>>? filter = null, string? includeModel = null)
+        {
+            // Nur Prüfen ob ein Datensatz gefunden wird mit der ID
+            try
+            {
+                if (filter is null) return false;
+
+               //  var model = _DbSet.Find(iID);
+                var model = _DbSet.Where(filter);
+                if (model == null) return false;
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("GetByID" + Environment.NewLine + ex.Message);
+                return false;
+            }
+
         }
         // -----------------------------------------------------------------------------
         public bool Add(Model iModel)
