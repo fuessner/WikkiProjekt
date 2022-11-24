@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -31,6 +32,21 @@ namespace WikkiDBBlib
             base.OnConfiguring(optionsBuilder);
         }
         // mit DbSet vereisen wir hier auf Person.cs und Stadt.cs aus dem Projekt
+
+        // Diese Funktion kommt jetzt neu dazu um zu verhinden das eine Stadt gelöscht wurde, die schon einer
+        // Person zugewiesen wurde
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            // In dieser Forech schleife geht er durch alle ForeignKey durch und prüft ob dieser vorhanden ist.
+            // Danach wird die eigenschaft In Migration geändert so das nicht mehr gelöscht werden kann
+            // Paket-Manager-Konsole öffnen und den Befehl: Add-migration AddDeleteBehavior.Restrict eingeben
+            // Der Name AddDeleteBehaviorRestrict ist frei gewählt
+            foreach (var foreignKey in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+        }
         public DbSet<Person>? Person { get; set; }
         public DbSet<Stadt>? Stadt { get; set; }
         // Zum starten des Projekte menü: EXTRAS -> NuGet Pak... -> Paket Manager Console
